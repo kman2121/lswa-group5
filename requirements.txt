@@ -3,4 +3,5 @@ django-debug-toolbar==1.4
 MySQL-python==1.2.5
 numpy==1.11.2
 opencv-python==3.1.0.3
+Pillow==3.4.2
 sqlparse==0.2.1

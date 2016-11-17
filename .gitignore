@@ -1,3 +1,6 @@
 *.pyc
+*.png
+!user.png
+!user_s.png
 env/*
 migrations/
