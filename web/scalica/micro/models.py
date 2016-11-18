@@ -16,7 +16,7 @@ def profile_pic_path(instance, filename):
 def pic_path(instance, filename):
     # TODO: figure out how we want to format this
     # have to change the filename...what if someone else tries posting something the same day with the same filename 
-    return 'images/uploads/%Y/%m/%d/{0}'.format(filename)
+    return 'images/uploads/{0}/{1}'.format(instance.user.username, filename)
 
 
 # Models
