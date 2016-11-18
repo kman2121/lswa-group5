@@ -5,7 +5,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
-from .models import Following, Post, FollowingForm, PostForm, MyUserCreationForm
+from .models import Following, Post
+from .models import FollowingForm, ImageUploadForm, PostForm, MyUserCreationForm
 
 
 # Anonymous views
@@ -19,7 +20,7 @@ def index(request):
 def anon_home(request):
   return render(request, 'micro/public.html')
 
-def stream(request, user_id):  
+def stream(request, user_id):
   # See if to present a 'follow' button
   form = None
   if request.user.is_authenticated() and request.user.id != int(user_id):
@@ -109,3 +110,17 @@ def follow(request):
   else:
     form = FollowingForm
   return render(request, 'micro/follow.html', {'form' : form})
+
+@login_required
+def upload(request):
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_pic = form.save(commit=False)
+            new_pic.uploader = request.user
+            new_pic.upload_date = timezone.now()
+            new_pic.save()
+            return home(request)
+    else:
+        form = ImageUploadForm()
+    return render(request, 'micro/upload.html', {'form': form})

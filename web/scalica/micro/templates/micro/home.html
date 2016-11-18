@@ -2,8 +2,7 @@
 {% load humanize %}
 {% load staticfiles %}
 {% block sidebar %}
-<!-- TODO: this should get the url of the user's profile picture -->
-<img src="{% static "micro/uploads/images/profiles/user.png" %}" alt="Generic User"/> <br>
+<img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture"/> <br>
 {{ user.username }} <p>
 {% endblock %}
 {% block content %}
@@ -26,7 +25,7 @@
     {% for post in post_list %}
       <tr>
         <td>
-          <!-- TODO: this should get the url of the user's profile picture -->
+          <!-- TODO: this should get the url of the user's small profile picture -->
           <img src="{% static "micro/uploads/images/profiles/user_s.png" %}" alt="Generic User"/>
         </td>
         <td>
