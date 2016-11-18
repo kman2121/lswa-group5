@@ -2,7 +2,8 @@
 {% load humanize %}
 {% load staticfiles %}
 {% block sidebar %}
-<img src="{% static "micro/images/user.png" %}" alt="Generic User"/> <br>
+
+<img src="{{ stream_user.profile.profile_picture.url }}" alt="Generic User"/> <br>
 {{ stream_user.username }}
 {% if form %}
   <form action="/micro/follow/" method="post">

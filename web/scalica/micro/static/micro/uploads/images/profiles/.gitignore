@@ -1,0 +1,5 @@
+# Ignore all profile pictures except the default ones
+*
+!user.png
+!user_s.png
+!.gitignore
