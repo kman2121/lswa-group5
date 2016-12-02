@@ -1,5 +1,4 @@
-from xmlrpc.server import SimpleXMLRPCServer
-from xmlrpc.server import SimpleXMLRPCRequestHandler
+import SimpleXMLRPCServer
 import numpy as np
 import cv2
 from PIL import Image
@@ -23,5 +22,5 @@ def processFaces(URL):
 
 server = SimpleXMLRPCServer(("0.0.0.0", 80))
 server.register_function(processFaces, 'face')
-print('Serving XML-RPC on localhost port 8000')
+print('Serving XML-RPC on localhost port 80')
 server.serve_forever()
