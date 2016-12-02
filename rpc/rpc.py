@@ -20,7 +20,7 @@ def processFaces(URL):
               )
 
 
-server = SimpleXMLRPCServer(("0.0.0.0", 80))
+server = SimpleXMLRPCServer.SimpleXMLRPCServer(("0.0.0.0", 80))
 server.register_function(processFaces, 'face')
 print('Serving XML-RPC on localhost port 80')
 server.serve_forever()
