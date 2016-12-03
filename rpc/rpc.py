@@ -2,10 +2,12 @@ import SimpleXMLRPCServer
 import numpy as np
 import cv2
 from PIL import Image
-import urllib, cStringIO
+import urllib
 
 def processFaces(URL):
-    img = Image.open(cStringIO.StringIO(urllib.urlopen(URL).read()))
+    res = urllib.urlopen(URL)
+	img = np.asarray(bytearray(res.read()), dtype="uint8")
+	img = cv2.imdecode(image, cv2.IMREAD_COLOR)
     cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
     if(img is None):
         return "Image did not load"
