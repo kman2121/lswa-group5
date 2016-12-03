@@ -1,10 +1,9 @@
-import SimpleXMLRPCServer
 import numpy as np
 import cv2
 from PIL import Image
 import urllib
 
-def processFaces(URL):
+def processFace(URL):
     res = urllib.urlopen(URL)
     img = np.asarray(bytearray(res.read()), dtype="uint8")
     img = cv2.imdecode(img, cv2.IMREAD_COLOR)
@@ -13,6 +12,7 @@ def processFaces(URL):
         return "Image did not load"
     else:
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        print "greyed"
         x =  cascade.detectMultiScale(
                 gray,
                 1.3,
@@ -21,11 +21,4 @@ def processFaces(URL):
         print x
         return x
 
-def test(msg):
-    return msg
-
-server = SimpleXMLRPCServer.SimpleXMLRPCServer(("0.0.0.0", 80))
-server.register_function(processFaces, 'face')
-server.register_function(test, 'test')
-print('Serving XML-RPC on localhost port 80')
-server.serve_forever()
+processFace("http://www.uni-regensburg.de/Fakultaeten/phil_Fak_II/Psychologie/Psy_II/beautycheck/english/durchschnittsgesichter/m(01-32)_gr.jpg")
