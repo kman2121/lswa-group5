@@ -4,7 +4,7 @@ import cv2
 from PIL import Image
 import urllib
 
-cascadepath = '/home/rakan959/opencv/data/haarcascades/haarcascade_frontalface_default.xml'
+cascadepath = 'haarcascade_frontalface_default.xml'
 
 def processFaces(URL):
     res = urllib.urlopen(URL)
