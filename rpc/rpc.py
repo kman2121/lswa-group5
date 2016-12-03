@@ -3,6 +3,13 @@ import numpy as np
 import cv2
 from PIL import Image
 import urllib
+from cStringIO import StringIO
+
+def toString(detected):
+    f = StringIO()
+    format.write_array(f, detected)
+    s = f.getvalue()
+    return s
 
 def processFaces(URL):
     res = urllib.urlopen(URL)
@@ -19,7 +26,7 @@ def processFaces(URL):
                 5
               )
         print x
-        return x
+        return toString(x)
 
 def test(msg):
     return msg
