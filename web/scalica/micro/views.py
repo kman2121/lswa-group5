@@ -8,6 +8,8 @@ from django.utils import timezone
 from .models import Following, Post
 from .models import FollowingForm, ImageUploadForm, PostForm, MyUserCreationForm
 
+import xmlrpclib
+
 
 # Anonymous views
 #################
@@ -117,6 +119,13 @@ def upload(request):
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
             new_pic = form.save(commit=False)
+            
+            rpc = xmlrpclib.ServerProxy("http://localhost:8080")
+            faceArr = rpc.face(new_pic.image)
+            if type(faceArr) is list and len(faceArr) > 0:
+                new_pic.has_faces = True
+                # for now, just throwing out the array
+            
             new_pic.uploader = request.user
             new_pic.upload_date = timezone.now()
             new_pic.save()

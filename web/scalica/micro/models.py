@@ -50,9 +50,10 @@ class Picture(models.Model):
     
     description = models.TextField()
     upload_date = models.DateTimeField('Upload date')
+    has_faces = models.BooleanField(default=False)
     
     # TODO: perhaps set limit_choices_to to only allow a user to tag friends
-    tags = models.ManyToManyField(Profile,
+    tags = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                  related_name='images_tagged_in')
 
     
