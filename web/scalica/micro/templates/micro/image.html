@@ -10,4 +10,10 @@
 
 {% block content %}
 <img id="image-page-pic" src="{{ image_url }}" />
+
+{% if my_photo %}
+    <!--  INSERT TAGGING CODE HERE  -->
+    <!--  check views.py to check available context  -->
+{% endif %}
+
 {% endblock %}

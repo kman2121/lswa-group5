@@ -49,7 +49,9 @@
         </td>
         <td>
           {% if post.image %}
-          <img class="imgpost" src="{{ post.image.url }}"/><br />
+          <a href="/micro/image/{{post.image.id}}">
+              <img class="imgpost" src="{{ post.image.url }}"/><br />
+          </a>
           {% endif %}
           {{ post.text }}
           {{ post.id }}
