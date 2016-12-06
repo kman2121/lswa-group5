@@ -115,20 +115,7 @@ function generateTag(event){
     document.getElementById('tagpage').appendChild(cancelBtn);
     cancelBtn.addEventListener('click', beginAgain);
   }
-  $( function() {
-    var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
-    $( "#tag" ).autocomplete({
-      source: friendDict,
-      select: function(event, ui) {
-        //TODO: friend selected, tag logic here
-        console.log(this.value);
-
-        var req = new XMLHttpRequest();
-        req.open("POST", "", true);
-        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      }
-    });
-  } );
+  getFriends()
 
 }
 
