@@ -61,12 +61,11 @@ function dojustice() {
   $( "#tag" ).autocomplete({
     source: friendDict,
     select: function(event, ui) {
-      //TODO: friend selected, tag logic here
-    /*  console.log(this.value);
-
-      var req = new XMLHttpRequest();
-      req.open("POST", "", true);
-      req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");*/
+      var content = "the_tag="+ui.item.value;
+      var req = new XMLHttpRequest();
+      req.open("POST", "", true);
+      req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      req.send(content);
     }
   });
 }
