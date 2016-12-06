@@ -45,6 +45,11 @@
 
 }
 
+.imgpost {
+  max-height:128px;
+  max-width:128px;
+}
+
 .half-column {
   display: table-cell;
   vertical-align: top;
