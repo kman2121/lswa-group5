@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function(event){
   var tgpg = document.getElementById('tagpage');
   var prompt = tagMePrompt();
-  console.log(document.getElementById('img-page-pic'))
   var hasFaces = document.getElementById('img-page-pic').classList.contains('has_faces');
   if(hasFaces){
     prompt.childNodes[0].innerHTML = "Face detected! Would you like to tag the image?";
@@ -81,7 +80,7 @@ function generateTag(event){
   tagger.appendChild(form);
 
   document.getElementById('tagpage').appendChild(tagger);
-  tagBox.addEventListener("change", findFriends);
+  //tagBox.addEventListener("change", findFriends);
 
   var cancelBtn = document.getElementById('cancel');
   if(cancelBtn){
