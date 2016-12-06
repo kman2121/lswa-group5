@@ -120,8 +120,7 @@ def image(request, image_id):
         try:
             image = Post.objects.get(id=image_id)
         except Post.DoesNotExist:
-            # TODO: redirect to home
-            return
+            return redirect('/micro')
 
         my_photo = False
         if request.user.is_authenticated() and request.user.id == image.user.id:
@@ -137,7 +136,7 @@ def image(request, image_id):
 
         return render(request, 'micro/image.html', context)
     else:
-        # TODO: redirect to home
+        #TODO Post Logic
         return
 
 @login_required
