@@ -14,9 +14,12 @@ import uuid
 
 def uuidGen():
     x = uuid.uuid4()
-    while(Post.objects.get(id = x)):
-        x = uuid.uuid4()
-    return x
+    while(True):
+        try:
+            Post.objects.get(id = x)
+            x = uuid.uuid4()
+        except:
+            return x
 
 # upload_to path determination
 def profile_pic_path(instance, filename):
