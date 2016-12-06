@@ -183,7 +183,7 @@ def friendlist(request):
     if request.method == 'GET':
         follows = [o.followee.username for o in Following.objects.filter(
             follower_id=request.user.id)]
-        follows.append(request.user.id)
+        follows.append(request.user.username)
 
         return HttpResponse(json.dumps({'friends': follows}), content_type="application/json")
     else:
