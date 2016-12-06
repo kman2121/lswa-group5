@@ -143,7 +143,7 @@ def upload(request):
                 print cache.get('maxThreads')
                 print 'queued'
                 workQueue.put(new_pic.id)
-            return home(request)
+            return redirect("micro")
     else:
         form = ImageUploadForm()
     return render(request, 'micro/upload.html', {'form': form})
@@ -152,23 +152,20 @@ def processPicture(pic_id, q):
     pic = Post.objects.get(id=pic_id)
     faceArr = rpc.face(pic.image.path)
     print 'called rpc'
-    print faceArr
-    print type(faceArr)
-    print len(faceArr)
     if type(faceArr) is list and len(faceArr) > 0:
         pic.has_faces = True
-        print 'tru'
+        print 'face detected'
         # for now, just throwing out the array
 
     pic.save()
+
     print 'checking q'
     while(not q.empty()):
         pic_id = q.get()
         pic = Picture.objects.get(id=pic_id)
         faceArr = rpc.face(pic.image.path)
-        if(len(faceArr) > 0):
+        if type(faceArr) is list and len(faceArr) > 0:
             pic.has_faces = True
-            print 'tru'
             # for now, just throwing out the array
 
         pic.save()
