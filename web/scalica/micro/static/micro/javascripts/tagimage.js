@@ -10,14 +10,6 @@ document.addEventListener('DOMContentLoaded', function(event){
   }
   tgpg.appendChild(prompt);
   document.getElementById("yesBtn").addEventListener('click', generateTag);
-  $( function() {
-    var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
-    console.log('tagged')
-    console.log(document.getElementById('tag'));
-    $( "#tag" ).autocomplete({
-      source: friendDict
-    });
-  } );
 });
 
 
@@ -95,7 +87,13 @@ function generateTag(event){
     document.getElementById('tagpage').appendChild(cancelBtn);
     cancelBtn.addEventListener('click', beginAgain);
   }
-
+  $( function() {
+    var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
+    print('tagged');
+    $( "#tag" ).autocomplete({
+      source: friendDict
+    });
+  } );
 
 }
 
