@@ -52,7 +52,7 @@
 
 #img-page-pic {
     max-height: 600px;
-    min-height: 600px;
+    max-width: 600px;
 }
 
 .half-column {
