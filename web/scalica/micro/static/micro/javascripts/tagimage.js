@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function(event){
   document.getElementById("yesBtn").addEventListener('click', generateTag);
   $( function() {
     var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
+    console.log('tagged')
     $( "#tag" ).autocomplete({
       source: friendDict
     });
