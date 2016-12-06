@@ -77,7 +77,7 @@ function dojustice() {
                 var curAdditionText = resText[taggy];
                 var curAddition = document.createElement("li");
                 curAddition.innerHTML = curAdditionText;
-                replace.appendChild(curAddtion);
+                replace.appendChild(curAddition);
               }
               fixme.appendChild(replace);
           }
