@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function(event){
   $( function() {
     var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
     console.log('tagged')
+    console.log(document.getElementById('tag'));
     $( "#tag" ).autocomplete({
       source: friendDict
     });
