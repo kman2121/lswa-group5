@@ -13,9 +13,6 @@
     <a href="/micro/image/{{my_post.id}}">
         <img class="imgpost" src="{{ my_post.image.url }}"/><br />
     </a>
-    {% if my_post.has_faces %}
-    <p>TAG ME PLS</p>
-    {% endif %}
   {% endif %}
  {{ my_post.text }} ({{ my_post.pub_date|naturaltime }})
 {% endif %}
