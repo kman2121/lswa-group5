@@ -132,7 +132,7 @@ def image(request, image_id):
         context = {
             'my_photo': my_photo,
             'image_url': image_url,
-            'has_face': has_face,
+            'has_faces': has_faces,
             'user': curr_user
         }
 
