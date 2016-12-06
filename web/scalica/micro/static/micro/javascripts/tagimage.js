@@ -50,7 +50,8 @@ function dojustice() {
     friendDict = []
     console.log(this.responseText);
     var friends = JSON.parse(this.responseText);
-    for (friend in friends){
+    for (friend in friends['friends']){
+      console.log(friend);
       friendDict.push(friends[friend]);
     }
   }
