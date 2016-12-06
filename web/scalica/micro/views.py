@@ -5,8 +5,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
-from .models import Following, Post
+from .models import Following, Post, Picture
 from .models import FollowingForm, ImageUploadForm, PostForm, MyUserCreationForm
+
+import xmlrpclib
 
 
 # Anonymous views
@@ -77,10 +79,15 @@ def home(request):
     follower_id=request.user.id)]
   post_list = Post.objects.filter(
       user_id__in=follows).order_by('-pub_date')[0:10]
+  image_list = Picture.objects.filter(uploader__exact=request.user.id) \
+      .order_by('-upload_date')[0:5]
+  
   context = {
     'post_list': post_list,
-    'my_post' : my_post,
-    'post_form' : PostForm
+    'my_post': my_post,
+    'image_list': image_list,
+    'post_form' : PostForm,
+    'image_upload_form': ImageUploadForm
   }
   return render(request, 'micro/home.html', context)
 
@@ -117,9 +124,19 @@ def upload(request):
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
             new_pic = form.save(commit=False)
+            
             new_pic.uploader = request.user
             new_pic.upload_date = timezone.now()
             new_pic.save()
+            
+            rpc = xmlrpclib.ServerProxy("http://localhost:8080")
+            faceArr = rpc.face(new_pic.image.path)
+            if type(faceArr) is list and len(faceArr) > 0:
+                new_pic.has_faces = True
+                # for now, just throwing out the array
+            
+            new_pic.save()
+            
             return home(request)
     else:
         form = ImageUploadForm()

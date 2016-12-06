@@ -6,7 +6,8 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, TextInput, FileInput
+
 
 # Helper functions
 
@@ -50,9 +51,10 @@ class Picture(models.Model):
     
     description = models.TextField()
     upload_date = models.DateTimeField('Upload date')
+    has_faces = models.BooleanField(default=False)
     
     # TODO: perhaps set limit_choices_to to only allow a user to tag friends
-    tags = models.ManyToManyField(Profile,
+    tags = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                  related_name='images_tagged_in')
 
     
@@ -89,6 +91,9 @@ class ImageUploadForm(ModelForm):
     class Meta:
         model = Picture
         fields = ('image', 'description')
+        widgets = {
+          'image': FileInput(attrs={'accept': 'image/gif, image/jpeg, image/png, image/bmp, image/', 'value': 'Select Image'}),
+        }
 
 class FollowingForm(ModelForm):
   class Meta:
