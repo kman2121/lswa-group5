@@ -158,7 +158,7 @@ def processPicture(pic_id, q):
 
     pic.save()
     print 'checking q'
-    while(not q.isEmpty()):
+    while(not q.empty()):
         pic_id = q.get()
         pic = Picture.objects.get(id=pic_id)
         faceArr = rpc.face(pic.image.path)
