@@ -158,7 +158,7 @@ def image(request, image_id):
                 print 'tag found'
                 tag_name = request.POST.get('the_tag')
                 try:
-                    userToTag = Profile.objects.get(username = tag_name)
+                    userToTag = User.objects.get(username = tag_name)
                     image.tags.add(userToTag)
                     image.save()
                     print 'tagged'
