@@ -18,7 +18,8 @@ def index(request):
     return anon_home(request)
 
 def anon_home(request):
-  return render(request, 'micro/public.html')
+  #return render(request, 'micro/public.html')
+  return render(request, 'micro/temptagpage.html')
 
 def stream(request, user_id):
   # See if to present a 'follow' button
@@ -37,7 +38,7 @@ def stream(request, user_id):
     posts = paginator.page(page)
   except PageNotAnInteger:
     # If page is not an integer, deliver first page.
-    posts = paginator.page(1) 
+    posts = paginator.page(1)
   except EmptyPage:
     # If page is out of range (e.g. 9999), deliver last page of results.
     posts = paginator.page(paginator.num_pages)
