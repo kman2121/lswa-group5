@@ -18,8 +18,8 @@ def index(request):
     return anon_home(request)
 
 def anon_home(request):
-  return render(request, 'micro/public.html')
-  #return render(request, 'micro/temptagpage.html')
+  #return render(request, 'micro/public.html')
+  return render(request, 'micro/temptagpage.html')
 
 def stream(request, user_id):
   # See if to present a 'follow' button
@@ -71,7 +71,6 @@ def register(request):
 def imageTagPage(request):
       return render(request, 'micro/temptagpage.html')
 
-@login_required
 def create_tag(request):
     if request.method == 'POST':
         tag_name = request.POST.get('the_tag')

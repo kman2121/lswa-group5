@@ -177,25 +177,22 @@ function tagPhoto(event){
   //once the tag has been successful update the
   //image to display the tag and prompt for more tags
     console.log("create post is working!") // sanity check
-    $.ajax({
-        url : "create_tag/", // the endpoint
-        type : "POST", // http method
-        data : { the_tag : userToBeTagged,
-                 the_image : url}, // data sent with the post request
-
-        // handle a successful response
-        success : function(json) {
-            console.log(json); // log the returned json to the console
-            console.log("success"); // another sanity check
-        },
-
-        // handle a non-successful response
-        error : function(xhr,errmsg,err) {
-            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-        }
-    });
+  //Send Http req with image url and username of the person to be tagged
+    var req = new XMLHttpRequest();
+    req.open("POST", "create_tag/", true);
+     // http method
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.addEventListener('load', function(event){
+      if (this.status >= 200 && this.status < 400){
+        console.log(req.responseText); // log the returned json to the console
+        console.log("success");
+      }
+      else{
+        console.log("error");
+      }
+      });
+    req.send( "the_tag="+userToBeTagged+"&"+
+                 "the_image="+url); // data sent with the post request
 };
 
 /*
