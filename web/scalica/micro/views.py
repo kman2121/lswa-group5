@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
+from django.core.cache import caches
 
 from .models import Following, Post
 from .models import FollowingForm, ImageUploadForm, PostForm, MyUserCreationForm
@@ -13,8 +14,8 @@ import threading
 import xmlrpclib
 import Queue
 
-threads = 0
-maxThreads = 20
+cache.set('threads', '0')
+cache.set('maxThreads', 20)
 workQueue = Queue.Queue(0)
 rpc = xmlrpclib.ServerProxy("http://localhost:8080")
 
@@ -132,10 +133,10 @@ def upload(request):
             new_pic.user = request.user
             new_pic.pub_date = timezone.now()
             new_pic.save()
-            if(threads < maxthreads):
+            if(cache.get('threads') < cache.get('maxthreads')):
                 image_thread = ImageProcessingThread(new_pic.id, workQueue)
                 image_thread.start()
-                threads +=1
+                cache.incr('threads')
             else:
                 workQueue.put(new_pic.id)
             return home(request)
@@ -171,4 +172,4 @@ class ImageProcessingThread(threading.Thread):
 
     def run(self):
         processPicture(self.image_id, q)
-        threads -= 1
+        cache.decr('threads')
