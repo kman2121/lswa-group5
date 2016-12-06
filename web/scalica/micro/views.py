@@ -7,6 +7,8 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.core.cache import cache
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
+
 
 from .models import Following, Post
 from .models import FollowingForm, ImageUploadForm, PostForm, MyUserCreationForm
@@ -117,7 +119,7 @@ def post(request):
     form = PostForm
   return render(request, 'micro/post.html', {'form' : form})
 
-@login_required
+@csrf_exempt
 def image(request, image_id):
     if request.method == 'GET':
         try:
@@ -133,7 +135,7 @@ def image(request, image_id):
         curr_user = request.user
         users_in_photo = image.tags.all()
         tagged_users = [o.username for o in image.tags.all()]
-        
+
         context = {
             'my_photo': my_photo,
             'image_url': image_url,
@@ -152,14 +154,13 @@ def image(request, image_id):
             if(request.POST.get('the_tag')):
                 tag_name = request.POST.get('the_tag')
                 try:
-                    userToTag = Profile.objects.get(username = tag_name)
+                    userToTag = User.objects.get(username = tag_name)
                     image.tags.add(userToTag)
                     image.save()
                 except:
                     pass
-        
+                
         tagged_users = [o.username for o in image.tags.all()]
-
         return HttpResponse(json.dumps({'tags': tagged_users}), content_type="application/json")
     else:
         return redirect('/micro/')
