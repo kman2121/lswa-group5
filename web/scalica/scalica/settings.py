@@ -25,7 +25,7 @@ SECRET_KEY = 'o2m&25i%nxda=w1t7e93nl^1-g%4yw496+$%(hi=fp6x7)8dn!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'130.211.175.115']
+ALLOWED_HOSTS = [u'130.211.175.115', u'127.0.0.1']
 
 LOGIN_URL = '/micro/login/'
 LOGIN_REDIRECT_URL = '/micro/home/'
