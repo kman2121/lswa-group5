@@ -9,6 +9,9 @@
 {% block content %}
 <div id="status">
 {% if my_post %}
+  {% if post.image %}
+  <img src="{{ post.image.url }}" width="64" />
+  {% endif %}
  {{ my_post.text }} ({{ my_post.pub_date|naturaltime }})
 {% endif %}
 </div>
