@@ -30,9 +30,27 @@
   height:30px;
 }
 
-#post {
-  padding:10px;
-  height:30px;
+#imagelist {
+  
+}
+
+#post-container {
+  
+}
+
+#post-form {
+  
+}
+
+#image-upload-form {
+  
+}
+
+.half-column {
+  display: table-cell;
+  vertical-align: top;
+  padding: 10px;
+  min-width: 300px;
 }
 
 a:link {

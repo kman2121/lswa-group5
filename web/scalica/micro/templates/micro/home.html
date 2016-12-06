@@ -3,7 +3,16 @@
 {% load staticfiles %}
 {% block sidebar %}
 <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture"/> <br>
-{{ user.username }} <p>
+{{ user.username }}
+
+{% if image_list %}
+<div id='imagelist'>
+  {% for image in image_list %}
+    <img src="{{ image.image.url }}" alt="{{ image.description }}" width="64" />
+  {% endfor %}
+</div>
+{% endif %}
+
 {% endblock %}
 {% block content %}
 <div id="status">
@@ -11,14 +20,26 @@
  {{ my_post.text }} ({{ my_post.pub_date|naturaltime }})
 {% endif %}
 </div>
-<div id="post">
-  <form action="/micro/post/" method="post">
-    {% csrf_token %}
-    {{ post_form.text }}
-    <input type="submit" value="Post" />
-  </form>
+
+<div id="post-container">
+  <div id="post-form" class="half-column">
+    <form action="/micro/post/" method="post">
+      {% csrf_token %}
+      {{ post_form.text }}
+      <input type="submit" value="Post" />
+    </form>
+  </div>
+
+  <div id="image-upload-form" class="half-column">
+    <form action="/micro/upload/" method="post">
+      {% csrf_token %}
+      {{ image_upload_form.description }}
+      {{ image_upload_form.image }}
+      <input type="submit" value="Upload Image" />
+    </form>
+  </div>
 </div>
-<p>
+
 <div>
 {% if post_list %}
   <table id="postlist">
@@ -26,7 +47,7 @@
       <tr>
         <td>
           <!-- TODO: this should get the url of the user's small profile picture -->
-          <img src="{% static "micro/uploads/images/profiles/user_s.png" %}" alt="Generic User"/>
+          <img src="{% static 'micro/uploads/images/profiles/user_s.png' %}" alt="Generic User"/>
         </td>
         <td>
           {{ post.text }}

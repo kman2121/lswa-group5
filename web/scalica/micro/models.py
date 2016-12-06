@@ -6,7 +6,8 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, TextInput, FileInput
+
 
 # Helper functions
 
@@ -90,6 +91,9 @@ class ImageUploadForm(ModelForm):
     class Meta:
         model = Picture
         fields = ('image', 'description')
+        widgets = {
+          'image': FileInput(attrs={'accept': 'image/gif, image/jpeg, image/png, image/bmp, image/', 'value': 'Select Image'}),
+        }
 
 class FollowingForm(ModelForm):
   class Meta:
