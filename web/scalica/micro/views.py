@@ -122,21 +122,21 @@ def image(request, image_id):
         except Post.DoesNotExist:
             # TODO: redirect to home
             return
-        
+
         my_photo = False
         if request.user.is_authenticated() and request.user.id == image.user.id:
             my_photo = True
         has_faces = image.has_faces
         image_url = image.image.url
         curr_user = request.user
-        
+
         context = {
             'my_photo': my_photo,
             'image_url': image_url,
-            'has_faces': has_faces,
+            'has_face': has_face,
             'user': curr_user
         }
-        
+
         return render(request, 'micro/image.html', context)
     elif request.method == 'POST':
         # handle logic for tagging
