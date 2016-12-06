@@ -172,18 +172,19 @@ function beginAgain(eve){
 }
 
 function tagPhoto(event){
-
+  var userToBeTagged = this.id;
+  var url = document.querySelector('img').src;
   //once the tag has been successful update the
   //image to display the tag and prompt for more tags
     console.log("create post is working!") // sanity check
     $.ajax({
-        url : "create_post/", // the endpoint
+        url : "create_tag/", // the endpoint
         type : "POST", // http method
-        data : { the_post : $('#post-text').val() }, // data sent with the post request
+        data : { the_tag : userToBeTagged,
+                 the_image : url}, // data sent with the post request
 
         // handle a successful response
         success : function(json) {
-            $('#post-text').val(''); // remove the value from the input
             console.log(json); // log the returned json to the console
             console.log("success"); // another sanity check
         },

@@ -19,16 +19,6 @@ def pic_path(instance, filename):
     return 'images/uploads/{0}/{1}'.format(instance.uploader.username, filename)
 
 
-class PostForm(forms.ModelForm):
-    class Meta:
-        model = Tag
-        fields = ['text']
-        widgets = {
-            'text': forms.TextInput(
-                attrs={'id': 'post-text', 'required': True, 'placeholder': 'Say something...'}
-            ),
-        }
-
 # Models
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
@@ -87,15 +77,14 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 # Model Forms
-'''
-class TagForm(ModelForm):
+
+class PostForm(ModelForm):
   class Meta:
     model = Post
     fields = ('text',)
     widgets = {
       'text': TextInput(attrs={'id' : 'input_post'}),
     }
-'''
 
 class ImageUploadForm(ModelForm):
     class Meta:

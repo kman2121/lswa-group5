@@ -18,8 +18,8 @@ def index(request):
     return anon_home(request)
 
 def anon_home(request):
-  #return render(request, 'micro/public.html')
-  return render(request, 'micro/temptagpage.html')
+  return render(request, 'micro/public.html')
+  #return render(request, 'micro/temptagpage.html')
 
 def stream(request, user_id):
   # See if to present a 'follow' button
@@ -67,25 +67,30 @@ def register(request):
 
 # Authenticated views
 #####################
+@login_required
+def imageTagPage(request):
+      return render(request, 'micro/temptagpage.html')
 
 @login_required
 def create_tag(request):
     if request.method == 'POST':
         tag_name = request.POST.get('the_tag')
-        #image_name = request.POST.get('the_image')
+        image_name = request.POST.get('the_image')
+        pic = Picture.objects.get(image=image_name)
+        print("pic "+pic)
+        tagee = Profile.objects.get(username = tag_name)
+        print("tagee "+ tagee)
+        pic.tags.add(tagee)
+        print("Tags "+pic.tags)
+        pic.save()
         response_data = {}
-
-        #tagged_image = Image(author = request.user, )
-        #tagged_image.save_user_profile
-
         response_data['result'] ='Create tag successful'
-        #response_data['author'] = tagged_image.author.username
-
+        response_data['tagereeno'] = pic.tags
         return HttpResponse(
             json.dumps(response_data),
             content_type="application/json"
         )
-    else
+    else:
         return HttpResponse(
             json.dumps({"Error":"Something went wrong: your request was not a post"}),
             content_type="application/json"
