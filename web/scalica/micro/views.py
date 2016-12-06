@@ -133,12 +133,13 @@ def upload(request):
             new_pic.user = request.user
             new_pic.pub_date = timezone.now()
             new_pic.save()
-            if(cache.get('threads') < cache.get('maxthreads')):
+            if(cache.get('threads') < cache.get('maxThreads')):
                 image_thread = ImageProcessingThread(new_pic.id, workQueue)
                 image_thread.start()
                 print 'started thread'
                 cache.incr('threads')
             else:
+                print 'queued'
                 workQueue.put(new_pic.id)
             return home(request)
     else:
