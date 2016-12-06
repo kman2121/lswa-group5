@@ -160,7 +160,7 @@ def image(request, image_id):
                 except:
                     pass
         # handle logic for tagging
-        return redirect('');
+        return redirect('')
 
     else:
         return redirect('/micro/')
