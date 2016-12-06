@@ -2,8 +2,7 @@ document.addEventListener('DOMContentLoaded', function(event){
   var tgpg = document.getElementById('tagpage');
   var prompt = tagMePrompt();
   console.log(document.getElementById('img-page-pic'))
-  console.log(document.getElementById('img-page-pic').has_faces)
-  var hasFaces = document.getElementById('img-page-pic').has_faces;
+  var hasFaces = document.getElementById('img-page-pic').classList.contains('has_faces');
   if(hasFaces){
     prompt.childNodes[0].innerHTML = "Face detected! Would you like to tag the image?";
   }

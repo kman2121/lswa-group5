@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<img id="img-page-pic" src="{{ image_url }}" has_faces="{{has_faces}}"/>
+<img id="img-page-pic" src="{{ image_url }}" {% if has_faces %} class="has_faces" {% endif %}/>
 {% if my_photo %}
 <div id='tagpage'></div>
 {% endif %}
