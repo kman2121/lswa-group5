@@ -88,8 +88,11 @@ def home(request):
   follows = [o.followee_id for o in Following.objects.filter(
     follower_id=request.user.id)]
   follows.append(request.user.id)
-  post_list = Post.objects.filter(
-      user_id__in=follows).order_by('-pub_date')[0:10]
+  try:
+      post_list = Post.objects.filter(
+          user_id__in=follows).order_by('-pub_date')[0:10]
+  except:
+      post_list = False
   context = {
     'post_list': post_list,
     'my_post': my_post,
