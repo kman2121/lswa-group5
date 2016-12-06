@@ -162,6 +162,7 @@ def upload(request):
             new_pic.user = request.user
             new_pic.pub_date = timezone.now()
             new_pic.save()
+            redir = "/micro/image" + str(new_pic.id)
             if(cache.get('threads') < cache.get('maxThreads')):
                 image_thread = ImageProcessingThread(new_pic.id, workQueue)
                 image_thread.start()
@@ -172,7 +173,7 @@ def upload(request):
                 print cache.get('maxThreads')
                 print 'queued'
                 workQueue.put(new_pic.id)
-            return redirect("/micro/image/"+new-pic.id)
+            return redirect(redir)
     else:
         form = ImageUploadForm()
     return render(request, 'micro/upload.html', {'form': form})
