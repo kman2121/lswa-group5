@@ -46,12 +46,12 @@ function getFriends() {
 }
 
 function dojustice() {
-  friendDict = []
   if(this.status >= 200 && this.status < 400){
+    friendDict = []
     console.log(this.responseText);
     var friends = JSON.parse(this.responseText);
     for (friend in friends){
-      friendDict.append(friends[friend]);
+      friendDict.push(friends[friend]);
     }
   }
   $( "#tag" ).autocomplete({
