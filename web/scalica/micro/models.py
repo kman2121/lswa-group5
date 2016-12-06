@@ -43,7 +43,7 @@ class Post(models.Model):
   pub_date = models.DateTimeField('date_posted')
   image = models.ImageField(upload_to=pic_path, null=True)
   has_faces = models.BooleanField(default=False)
-  id = models.UUIDField(primary_key=True, default=uuidGen, editable=False)
+  #id = models.UUIDField(primary_key=True, default=uuidGen, editable=False)
   # TODO: perhaps set limit_choices_to to only allow a user to tag friends
   tags = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                    related_name='images_tagged_in')
