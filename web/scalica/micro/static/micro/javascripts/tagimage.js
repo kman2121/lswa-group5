@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function(event){
   }
   tgpg.appendChild(prompt);
   document.getElementById("yesBtn").addEventListener('click', generateTag);
-  var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
   $( function() {
+    var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
     $( "#tag" ).autocomplete({
       source: friendDict
     });
