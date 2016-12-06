@@ -31,7 +31,7 @@
   </div>
 
   <div id="image-upload-form" class="half-column">
-    <form action="/micro/upload/" method="post">
+    <form enctype="multipart/form-data" action="/micro/upload/" method="post">
       {% csrf_token %}
       {{ image_upload_form.description }}
       {{ image_upload_form.image }}
