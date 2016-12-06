@@ -134,7 +134,7 @@ def image(request, image_id):
         users_in_photo = image.tags.all()
 
         tagged_users = [o.username for o in image.tags.all()]
-
+        print json.dumps({'tags': tagged_users})
         context = {
             'my_photo': my_photo,
             'image_url': image_url,
