@@ -5,14 +5,6 @@
 <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture"/> <br>
 {{ user.username }}
 
-{% if image_list %}
-<div id='imagelist'>
-  {% for image in image_list %}
-    <img src="{{ image.image.url }}" alt="{{ image.description }}" width="64" />
-  {% endfor %}
-</div>
-{% endif %}
-
 {% endblock %}
 {% block content %}
 <div id="status">
@@ -33,7 +25,7 @@
   <div id="image-upload-form" class="half-column">
     <form enctype="multipart/form-data" action="/micro/upload/" method="post">
       {% csrf_token %}
-      {{ image_upload_form.description }}
+      {{ image_upload_form.text }}
       {{ image_upload_form.image }}
       <input type="submit" value="Upload Image" />
     </form>
@@ -50,6 +42,9 @@
           <img src="{% static 'micro/uploads/images/profiles/user_s.png' %}" alt="Generic User"/>
         </td>
         <td>
+          {% if post.image %}
+          <img src="{{ post.image.url }}" width="64" />
+          {% endif %}
           {{ post.text }}
         </td>
       </tr>

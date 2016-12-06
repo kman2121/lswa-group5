@@ -79,8 +79,8 @@ class PostForm(ModelForm):
 
 class ImageUploadForm(ModelForm):
     class Meta:
-        model = Picture
-        fields = ('image', 'description')
+        model = Post
+        fields = ('image', 'text')
         widgets = {
           'image': FileInput(attrs={'accept': 'image/gif, image/jpeg, image/png, image/bmp, image/', 'value': 'Select Image'}),
         }

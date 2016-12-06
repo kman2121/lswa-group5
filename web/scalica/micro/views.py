@@ -87,13 +87,10 @@ def home(request):
     follower_id=request.user.id)]
   post_list = Post.objects.filter(
       user_id__in=follows).order_by('-pub_date')[0:10]
-  image_list = Picture.objects.filter(uploader__exact=request.user.id) \
-      .order_by('-upload_date')[0:5]
 
   context = {
     'post_list': post_list,
     'my_post': my_post,
-    'image_list': image_list,
     'post_form' : PostForm,
     'image_upload_form': ImageUploadForm
   }
@@ -132,9 +129,8 @@ def upload(request):
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
             new_pic = form.save(commit=False)
-
-            new_pic.uploader = request.user
-            new_pic.upload_date = timezone.now()
+            new_pic.user = request.user
+            new_pic.pub_date = timezone.now()
             new_pic.save()
             if(threads < maxthreads):
                 image_thread = ImageProcessingThread(new_pic.id, workQueue)
@@ -142,14 +138,13 @@ def upload(request):
                 threads +=1
             else:
                 workQueue.put(new_pic.id)
-
             return home(request)
     else:
         form = ImageUploadForm()
     return render(request, 'micro/upload.html', {'form': form})
 
 def processPicture(pic_id, q):
-    pic = Picture.objects.get(id=self.image_id)
+    pic = Post.objects.get(id=self.image_id)
     faceArr = rpc.face(pic.image.path)
     if type(faceArr) is list and len(faceArr) > 0:
         pic.has_faces = True

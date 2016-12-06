@@ -16,6 +16,9 @@
 {% block content %}
 {% for post in posts %}
   <li>
+    {% if post.image %}
+    <img src="{{ post.image.url }}" width="64" />
+    {% endif %}
     {{ post.text }} ({{ post.pub_date|naturaltime }})
   </li>
 {% endfor %}
