@@ -8,6 +8,7 @@ from django.dispatch import receiver
 
 from django.forms import ModelForm, TextInput, FileInput
 
+import uuid
 
 # Helper functions
 
