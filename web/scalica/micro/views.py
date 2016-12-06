@@ -149,7 +149,7 @@ def upload(request):
     return render(request, 'micro/upload.html', {'form': form})
 
 def processPicture(pic_id, q):
-    pic = Post.objects.get(id=self.image_id)
+    pic = Post.objects.get(id=pic_id)
     faceArr = rpc.face(pic.image.path)
     print 'called rpc'
     if type(faceArr) is list and len(faceArr) > 0:
@@ -159,8 +159,8 @@ def processPicture(pic_id, q):
     pic.save()
     print 'checking q'
     while(not q.isEmpty()):
-        pid = q.get()
-        pic = Picture.objects.get(id=pid)
+        pic_id = q.get()
+        pic = Picture.objects.get(id=pic_id)
         faceArr = rpc.face(pic.image.path)
         if type(faceArr) is list and len(faceArr) > 0:
             pic.has_faces = True
