@@ -71,7 +71,7 @@ function dojustice() {
               while(fixme.childNodes[0]){
                 fixme.removeChild(fixme.childNodes[0]);
               }
-              var resText = JSON.parse(responseText);
+              var resText = JSON.parse(this.responseText);
               var replace = document.createElement("ul");
               for(taggy in resText){
                 var curAdditionText = resText[taggy];
