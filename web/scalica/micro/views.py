@@ -136,6 +136,7 @@ def upload(request):
             if(cache.get('threads') < cache.get('maxthreads')):
                 image_thread = ImageProcessingThread(new_pic.id, workQueue)
                 image_thread.start()
+                print 'started thread'
                 cache.incr('threads')
             else:
                 workQueue.put(new_pic.id)
@@ -152,7 +153,7 @@ def processPicture(pic_id, q):
         # for now, just throwing out the array
 
     pic.save()
-
+    print 'checking q'
     while(not q.isEmpty()):
         pid = q.get()
         pic = Picture.objects.get(id=pid)
@@ -171,5 +172,7 @@ class ImageProcessingThread(threading.Thread):
         super(ImageProcessingThread, self).__init__(*args, **kwargs)
 
     def run(self):
+        print 'processing'
         processPicture(self.image_id, q)
+        print 'processed'
         cache.decr('threads')
