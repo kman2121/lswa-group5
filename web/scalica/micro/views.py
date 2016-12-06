@@ -153,6 +153,8 @@ def processPicture(pic_id, q):
     faceArr = rpc.face(pic.image.path)
     print 'called rpc'
     print faceArr
+    print type(faceArr)
+    print len(faceArr)
     if type(faceArr) is list and len(faceArr) > 0:
         pic.has_faces = True
         # for now, just throwing out the array
