@@ -30,7 +30,7 @@ function tagMePrompt(){
   var noBtn = document.createElement('button');
   noBtn.id = 'noBtn';
   var no = document.createElement('a');
-  no.setAttribute('href', '/home');
+  no.setAttribute('href', '/micro');
   no.innerHTML = "No";
   noBtn.appendChild(no);
   prompt.appendChild(noBtn);
@@ -69,8 +69,6 @@ function generateTag(event){
 
   form.appendChild(tagLabel);
   form.appendChild(tagBox);
-  /*form.setAttribute("action", "");
-  form.setAttribute("method", "");*/
   tagger.appendChild(form);
 
   document.getElementById('tagpage').appendChild(tagger);
@@ -93,6 +91,11 @@ function generateTag(event){
       source: friendDict,
       select: function(event, ui) {
         //TODO: friend selected, tag logic here
+        console.log(this.value);
+
+        var req = new XMLHttpRequest();
+        req.open("POST", "", true);
+        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       }
     });
   } );
@@ -181,6 +184,8 @@ function beginAgain(eve){
   var prompt = tagMePrompt();
   prompt.childNodes[0].innerHTML = "Tag cancelled. Tag photo after all?"
   restart.appendChild(prompt);
+  document.getElementById("yesBtn").addEventListener('click', generateTag);
+
 }
 
 function tagPhoto(event){
@@ -218,10 +223,3 @@ function tagPhoto(event){
     }
   }
 }*/
-/*
-function createBox(coordArr, imgIdr){
-  var box = document.createElement('div');
-  box.id = ''+imgIdr;
-
-}
-*/
