@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
-from django.core.cache import caches
+from django.core.cache import cache
 
 from .models import Following, Post
 from .models import FollowingForm, ImageUploadForm, PostForm, MyUserCreationForm
