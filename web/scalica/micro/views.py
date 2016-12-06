@@ -7,6 +7,8 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.core.cache import cache
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
+
 
 from .models import Following, Post
 from .models import FollowingForm, ImageUploadForm, PostForm, MyUserCreationForm
@@ -117,6 +119,7 @@ def post(request):
     form = PostForm
   return render(request, 'micro/post.html', {'form' : form})
 
+@csrf_exempt
 def image(request, image_id):
     if request.method == 'GET':
         try:
