@@ -65,6 +65,7 @@ function dojustice() {
       var req = new XMLHttpRequest();
       req.open("POST", "", true);
       req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      req.addEventListener('load', dojustice);
       req.send(content);
     }
   });
