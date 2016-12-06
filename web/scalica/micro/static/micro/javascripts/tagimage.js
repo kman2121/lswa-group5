@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function(event){
   var tgpg = document.getElementById('tagpage');
   var prompt = tagMePrompt();
+  console.log(document.getElementById('img-page-pic'))
+  console.log(document.getElementById('img-page-pic').has_faces)
   var hasFaces = document.getElementById('img-page-pic').has_faces;
   if(hasFaces){
     prompt.childNodes[0].innerHTML = "Face detected! Would you like to tag the image?";
@@ -53,7 +55,7 @@ function generateTag(event){
   console.log("clicked yes");
   document.getElementById('tagMePrompt').style.visibility = 'hidden';*/
 
-  
+
 
   var tagger = document.createElement('div');
   tagger.id ="taggerformdiv";
