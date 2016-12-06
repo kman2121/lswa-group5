@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function(event){
   var tgpg = document.getElementById('tagpage');
   var prompt = tagMePrompt();
-  var hasFace = false;
-  if (hasFace){
+  var hasFaces = document.getElementById('img-page-pic').has_faces;
+  if(hasFaces){
     prompt.childNodes[0].innerHTML = "Face detected! Would you like to tag the image?";
   }
   else{
@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function(event){
 
 //Store friends of user
 var friendDict = [];
-
 
 function tagMePrompt(){
   console.log('Generating prompt');
