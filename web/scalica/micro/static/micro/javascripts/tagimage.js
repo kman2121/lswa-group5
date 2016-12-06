@@ -76,7 +76,7 @@ function dojustice() {
               for(taggy in resText){
                 var curAdditionText = resText[taggy];
                 var curAddition = document.createElement("li");
-                curAddtion.innerHTML = curAdditionText;
+                curAddition.innerHTML = curAdditionText;
                 replace.appendChild(curAddtion);
               }
               fixme.appendChild(replace);
