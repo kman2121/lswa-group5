@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function(event){
   var tgpg = document.getElementById('tagpage');
   var prompt = tagMePrompt();
-  var hasFace = false;
-  if (hasFace){
+  var hasFaces = document.getElementById('img-page-pic').classList.contains('has_faces');
+  if(hasFaces){
     prompt.childNodes[0].innerHTML = "Face detected! Would you like to tag the image?";
   }
   else{
@@ -10,14 +10,11 @@ document.addEventListener('DOMContentLoaded', function(event){
   }
   tgpg.appendChild(prompt);
   document.getElementById("yesBtn").addEventListener('click', generateTag);
-
 });
 
-//var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
 
 //Store friends of user
-var friendDict = [];
-
+//var friendDict = [];
 
 function tagMePrompt(){
   console.log('Generating prompt');
@@ -45,14 +42,16 @@ function generateTag(event){
   /*As soon as the user wants to tag someone
   return a list of their friends that can be accessed
   and eventually used to tag friends */
-
+/*
   var reqFriends = new XMLHttpRequest();
   reqFriends.open('GET', '/api/userfriends', true);
   //req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   reqFriends.addEventListener('load', updateFriendsList);
   reqFriends.send();
   console.log("clicked yes");
-  document.getElementById('tagMePrompt').style.visibility = 'hidden';
+  document.getElementById('tagMePrompt').style.visibility = 'hidden';*/
+
+
 
   var tagger = document.createElement('div');
   tagger.id ="taggerformdiv";
@@ -75,7 +74,7 @@ function generateTag(event){
   tagger.appendChild(form);
 
   document.getElementById('tagpage').appendChild(tagger);
-  tagBox.addEventListener("change", findFriends);
+  //tagBox.addEventListener("change", findFriends);
 
   var cancelBtn = document.getElementById('cancel');
   if(cancelBtn){
@@ -88,11 +87,19 @@ function generateTag(event){
     document.getElementById('tagpage').appendChild(cancelBtn);
     cancelBtn.addEventListener('click', beginAgain);
   }
-
+  $( function() {
+    var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
+    $( "#tag" ).autocomplete({
+      source: friendDict,
+      select: function(event, ui) {
+        //TODO: friend selected, tag logic here
+      }
+    });
+  } );
 
 }
 
-function findFriends(event){
+/*function findFriends(event){
   console.log("Finding friends");
   //access friends list and generate click-able list of first five
   //whose names begin with the currently entered text
@@ -164,7 +171,7 @@ function findFriends(event){
       document.getElementById('tagpage').appendChild(notFound);
     }
   }
-}
+}*/
 
 function beginAgain(eve){
   var restart = document.getElementById('tagpage');
@@ -203,14 +210,14 @@ function tagPhoto(event){
                  "the_image="+url); // data sent with the post request
 };
 
-function updateFriendsList(){
+/*function updateFriendsList(){
   if(this.status >= 200 && this.status < 400){
     var friends = JSON.parse(this.responseText);
     for (friend in friends){
       friendDict.append(friends[friend]);
     }
   }
-}
+}*/
 /*
 function createBox(coordArr, imgIdr){
   var box = document.createElement('div');

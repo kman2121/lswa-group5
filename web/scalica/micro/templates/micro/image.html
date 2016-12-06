@@ -2,18 +2,19 @@
 {% load humanize %}
 {% load staticfiles %}
 {% block sidebar %}
-
+<script src="{% static '/micro/javascripts/tagimage.js' %}"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <img src="{{ curr_user.profile.profile_picture.url }}" alt="Generic User"/> <br>
 {{ curr_user.username }}
 
 {% endblock %}
 
 {% block content %}
-<img id="img-page-pic" src="{{ image_url }}" />
-
+<img id="img-page-pic" src="{{ image_url }}" {% if has_faces %} class="has_faces" {% endif %}/>
 {% if my_photo %}
-    <!--  INSERT TAGGING CODE HERE  -->
-    <!--  check views.py to check available context  -->
+<div id='tagpage'></div>
 {% endif %}
 
 {% endblock %}
