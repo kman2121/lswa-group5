@@ -19,7 +19,6 @@
     <div id="tagged-list" class="half-column">
         <p>Friends in this photo:</p>
         <ul>
-            {{tagged_users.tags}}
             {% for tag in tagged_users.tags %}
                 <li>{{ tag }}</li>
             {% endfor %}
