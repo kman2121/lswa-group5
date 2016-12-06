@@ -155,8 +155,9 @@ def processPicture(pic_id, q):
     print faceArr
     print type(faceArr)
     print len(faceArr)
-    if type(faceArr) is list and len(faceArr) > 0:
+    if type(faceArr) is <type 'list'> and len(faceArr) > 0:
         pic.has_faces = True
+        print 'tru'
         # for now, just throwing out the array
 
     pic.save()
@@ -165,7 +166,7 @@ def processPicture(pic_id, q):
         pic_id = q.get()
         pic = Picture.objects.get(id=pic_id)
         faceArr = rpc.face(pic.image.path)
-        if len(faceArr) > 0:
+        if(len(faceArr) > 0):
             pic.has_faces = True
             print 'tru'
             # for now, just throwing out the array
