@@ -88,7 +88,7 @@ def home(request):
     follower_id=request.user.id)]
   post_list = Post.objects.filter(
       user_id__in=follows).order_by('-pub_date')[0:10]
-
+  print post_list
   context = {
     'post_list': post_list,
     'my_post': my_post,
@@ -152,6 +152,7 @@ def processPicture(pic_id, q):
     pic = Post.objects.get(id=pic_id)
     faceArr = rpc.face(pic.image.path)
     print 'called rpc'
+    print faceArr
     if type(faceArr) is list and len(faceArr) > 0:
         pic.has_faces = True
         # for now, just throwing out the array
