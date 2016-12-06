@@ -25,7 +25,7 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE,
                                 related_name='profile')
-    
+
     # TODO: make sure that on upload this is scaled down to a specified size
     # Default pic is 128*128...maybe use that
     profile_picture = models.ImageField(upload_to=profile_pic_path,
@@ -35,6 +35,12 @@ class Post(models.Model):
   user = models.ForeignKey(settings.AUTH_USER_MODEL)
   text = models.CharField(max_length=256, default="")
   pub_date = models.DateTimeField('date_posted')
+  image = models.ImageField(upload_to=pic_path, null=True)
+  has_faces = models.BooleanField(default=False)
+
+      # TODO: perhaps set limit_choices_to to only allow a user to tag friends
+      tags = models.ManyToManyField(settings.AUTH_USER_MODEL,
+                                   related_name='images_tagged_in')
   def __str__(self):
     if len(self.text) < 16:
       desc = self.text
@@ -42,22 +48,6 @@ class Post(models.Model):
       desc = self.text[0:16]
     return self.user.username + ':' + desc
 
-
-class Picture(models.Model):
-    uploader = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                 on_delete=models.CASCADE,
-                                 related_name='uploaded_images')
-    image = models.ImageField(upload_to=pic_path)
-    
-    description = models.TextField()
-    upload_date = models.DateTimeField('Upload date')
-    has_faces = models.BooleanField(default=False)
-    
-    # TODO: perhaps set limit_choices_to to only allow a user to tag friends
-    tags = models.ManyToManyField(settings.AUTH_USER_MODEL,
-                                 related_name='images_tagged_in')
-
-    
 class Following(models.Model):
   follower = models.ForeignKey(settings.AUTH_USER_MODEL,
                                related_name="user_follows")
@@ -76,8 +66,8 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
-    
-    
+
+
 # Model Forms
 class PostForm(ModelForm):
   class Meta:
@@ -86,7 +76,7 @@ class PostForm(ModelForm):
     widgets = {
       'text': TextInput(attrs={'id' : 'input_post'}),
     }
-    
+
 class ImageUploadForm(ModelForm):
     class Meta:
         model = Picture
