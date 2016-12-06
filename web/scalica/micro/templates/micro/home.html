@@ -11,7 +11,9 @@
 {% if my_post %}
   {% if my_post.image %}
   <img src="{{ my_post.image.url }}" width="128" /><br />
-  <p>{{mypost}}</p>
+    {% if my_post.has_faces %}
+    <p>TAG ME PLS</p>
+    {% endif %}
   {% endif %}
  {{ my_post.text }} ({{ my_post.pub_date|naturaltime }})
 {% endif %}
