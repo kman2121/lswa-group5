@@ -46,7 +46,6 @@ function generateTag(event){
   //req.open('GET', '/api/userfriends', true);
   //req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   //req.send(userid);?
-  document.getElementById('yesBtn').classList.toggle("clicked");
   console.log("clicked yes");
   document.getElementById('tagMePrompt').style.visibility = 'hidden';
 
@@ -62,7 +61,7 @@ function generateTag(event){
   tagBox.id = "tag";
   var tagLabel = document.createElement('label');
   tagLabel.setAttribute('for', 'tag');
-  tagLabel.innerHTML = "Tag a friend";
+  tagLabel.innerHTML = "Tag a friend ";
 
   form.appendChild(tagLabel);
   form.appendChild(tagBox);
@@ -73,6 +72,18 @@ function generateTag(event){
   document.getElementById('tagpage').appendChild(tagger);
   tagBox.addEventListener("change", findFriends);
 
+  var cancelBtn = document.getElementById('cancel');
+  if(cancelBtn){
+    cancelBtn.style.visibility = 'visible';
+  }
+  else{
+    cancelBtn = document.createElement('button');
+    cancelBtn.id = "cancel";
+    cancelBtn.innerHTML = "cancel tag";
+    document.getElementById('tagpage').appendChild(cancelBtn);
+    cancelBtn.addEventListener('click', beginAgain);
+  }
+
 
 }
 
@@ -80,10 +91,12 @@ function findFriends(event){
   console.log("Finding friends");
   //access friends list and generate click-able list of first five
   //whose names begin with the currently entered text
+
+  //get current input
   var inputTag = document.getElementById('tag');
   var findFriendKey = inputTag.value;
   console.log(findFriendKey);
-
+  //collect list of friends whose name matches current query
   var suggested = friendDict.filter(function(ele){
     var l = findFriendKey.length;
     if(ele.substring(0,l) === findFriendKey){
@@ -96,7 +109,7 @@ function findFriends(event){
     }
   });
   console.log(suggested);
-
+  //reset display
   if(document.getElementById("notFound")){
     (document.getElementById("notFound")).style.display = 'none';
   }
@@ -113,6 +126,8 @@ function findFriends(event){
     ul.id = "suggestedFriends";
     document.getElementById('tagpage').appendChild(ul);
   }
+
+  //display first five friends whose name matches current query
   var tracker = 0;
   for(var i = 0; i < 5; i++){
     console.log("creating buttons");
@@ -131,6 +146,7 @@ function findFriends(event){
       break;
     }
   }
+  //if no friends match the current query then prompt the user to change tag
   console.log(suggested.length);
   if (suggested.length === 0){
     if(document.getElementById("notFound")){
@@ -145,13 +161,41 @@ function findFriends(event){
   }
 }
 
-function tagPhoto(event){
-  console.log("clicked to tag");
-  //AJAX post to tag photo
-  //once the tag has been successful update the
-  //image to display the tag also
+function beginAgain(eve){
+  var restart = document.getElementById('tagpage');
+  while(restart.childNodes[0]){
+    restart.removeChild(restart.childNodes[0]);
+  }
+  var prompt = tagMePrompt();
+  prompt.childNodes[0].innerHTML = "Tag cancelled. Tag photo after all?"
+  restart.appendChild(prompt);
 }
 
+function tagPhoto(event){
+
+  //once the tag has been successful update the
+  //image to display the tag and prompt for more tags
+    console.log("create post is working!") // sanity check
+    $.ajax({
+        url : "create_post/", // the endpoint
+        type : "POST", // http method
+        data : { the_post : $('#post-text').val() }, // data sent with the post request
+
+        // handle a successful response
+        success : function(json) {
+            $('#post-text').val(''); // remove the value from the input
+            console.log(json); // log the returned json to the console
+            console.log("success"); // another sanity check
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+};
 
 /*
 function createBox(coordArr, imgIdr){

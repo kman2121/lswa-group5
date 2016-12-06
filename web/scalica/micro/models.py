@@ -19,12 +19,22 @@ def pic_path(instance, filename):
     return 'images/uploads/{0}/{1}'.format(instance.uploader.username, filename)
 
 
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ['text']
+        widgets = {
+            'text': forms.TextInput(
+                attrs={'id': 'post-text', 'required': True, 'placeholder': 'Say something...'}
+            ),
+        }
+
 # Models
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE,
                                 related_name='profile')
-    
+
     # TODO: make sure that on upload this is scaled down to a specified size
     # Default pic is 128*128...maybe use that
     profile_picture = models.ImageField(upload_to=profile_pic_path,
@@ -47,15 +57,15 @@ class Picture(models.Model):
                                  on_delete=models.CASCADE,
                                  related_name='uploaded_images')
     image = models.ImageField(upload_to=pic_path)
-    
+
     description = models.TextField()
     upload_date = models.DateTimeField('Upload date')
-    
+
     # TODO: perhaps set limit_choices_to to only allow a user to tag friends
     tags = models.ManyToManyField(Profile,
                                  related_name='images_tagged_in')
 
-    
+
 class Following(models.Model):
   follower = models.ForeignKey(settings.AUTH_USER_MODEL,
                                related_name="user_follows")
@@ -74,17 +84,19 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
-    
-    
+
+
 # Model Forms
-class PostForm(ModelForm):
+'''
+class TagForm(ModelForm):
   class Meta:
     model = Post
     fields = ('text',)
     widgets = {
       'text': TextInput(attrs={'id' : 'input_post'}),
     }
-    
+'''
+
 class ImageUploadForm(ModelForm):
     class Meta:
         model = Picture

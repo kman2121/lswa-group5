@@ -67,6 +67,32 @@ def register(request):
 
 # Authenticated views
 #####################
+
+@login_required
+def create_tag(request):
+    if request.method == 'POST':
+        tag_name = request.POST.get('the_tag')
+        #image_name = request.POST.get('the_image')
+        response_data = {}
+
+        #tagged_image = Image(author = request.user, )
+        #tagged_image.save_user_profile
+
+        response_data['result'] ='Create tag successful'
+        #response_data['author'] = tagged_image.author.username
+
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
+    else
+        return HttpResponse(
+            json.dumps({"Error":"Something went wrong: your request was not a post"}),
+            content_type="application/json"
+        )
+
+
+
 @login_required
 def home(request):
   '''List of recent posts by people I follow'''
