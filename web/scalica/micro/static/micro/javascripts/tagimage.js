@@ -90,7 +90,10 @@ function generateTag(event){
   $( function() {
     var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
     $( "#tag" ).autocomplete({
-      source: friendDict
+      source: friendDict,
+      select: function(event, ui) {
+        //TODO: friend selected, tag logic here
+      }
     });
   } );
 
