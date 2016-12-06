@@ -151,6 +151,7 @@ def upload(request):
 def processPicture(pic_id, q):
     pic = Post.objects.get(id=self.image_id)
     faceArr = rpc.face(pic.image.path)
+    print 'called rpc'
     if type(faceArr) is list and len(faceArr) > 0:
         pic.has_faces = True
         # for now, just throwing out the array
@@ -176,6 +177,6 @@ class ImageProcessingThread(threading.Thread):
 
     def run(self):
         print 'processing'
-        processPicture(self.image_id, q)
+        processPicture(self.image_id, self.q)
         print 'processed'
         cache.decr('threads')
