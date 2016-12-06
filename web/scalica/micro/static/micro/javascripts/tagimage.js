@@ -89,7 +89,6 @@ function generateTag(event){
   }
   $( function() {
     var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
-    print('tagged');
     $( "#tag" ).autocomplete({
       source: friendDict
     });
