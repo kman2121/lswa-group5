@@ -13,7 +13,11 @@ document.addEventListener('DOMContentLoaded', function(event){
 
 });
 
-var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
+//var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
+
+//Store friends of user
+var friendDict = [];
+
 
 function tagMePrompt(){
   console.log('Generating prompt');
@@ -42,10 +46,11 @@ function generateTag(event){
   return a list of their friends that can be accessed
   and eventually used to tag friends */
 
-  //var req = new XMLHTTPRequest();
-  //req.open('GET', '/api/userfriends', true);
+  var reqFriends = new XMLHttpRequest();
+  reqFriends.open('GET', '/api/userfriends', true);
   //req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  //req.send(userid);?
+  reqFriends.addEventListener('load', updateFriendsList);
+  reqFriends.send();
   console.log("clicked yes");
   document.getElementById('tagMePrompt').style.visibility = 'hidden';
 
@@ -186,6 +191,9 @@ function tagPhoto(event){
       if (this.status >= 200 && this.status < 400){
         console.log(req.responseText); // log the returned json to the console
         console.log("success");
+        //Should reload the page asking for another tag... could do
+        //here or could redirect to the page again when creating the
+        //tag
       }
       else{
         console.log("error");
@@ -195,6 +203,14 @@ function tagPhoto(event){
                  "the_image="+url); // data sent with the post request
 };
 
+function updateFriendsList(){
+  if(this.status >= 200 && this.status < 400){
+    var friends = JSON.parse(this.responseText);
+    for (friend in friends){
+      friendDict.append(friends[friend]);
+    }
+  }
+}
 /*
 function createBox(coordArr, imgIdr){
   var box = document.createElement('div');
