@@ -86,6 +86,7 @@ def home(request):
     my_post = None
   follows = [o.followee_id for o in Following.objects.filter(
     follower_id=request.user.id)]
+  follows.append(request.user.id)
   post_list = Post.objects.filter(
       user_id__in=follows).order_by('-pub_date')[0:10]
   print my_post.has_faces
