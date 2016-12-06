@@ -139,6 +139,8 @@ def upload(request):
                 print 'started thread'
                 cache.incr('threads')
             else:
+                print cache.get('threads')
+                print cache.get('maxThreads')
                 print 'queued'
                 workQueue.put(new_pic.id)
             return home(request)
