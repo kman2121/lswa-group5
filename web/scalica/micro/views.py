@@ -11,6 +11,12 @@ from .models import FollowingForm, ImageUploadForm, PostForm, MyUserCreationForm
 
 import threading
 import xmlrpclib
+import Queue
+
+threads = 0
+maxThreads = 20
+workQueue = Queue.Queue(0)
+rpc = xmlrpclib.ServerProxy("http://localhost:8080")
 
 
 # Anonymous views
@@ -41,7 +47,7 @@ def stream(request, user_id):
     posts = paginator.page(page)
   except PageNotAnInteger:
     # If page is not an integer, deliver first page.
-    posts = paginator.page(1) 
+    posts = paginator.page(1)
   except EmptyPage:
     # If page is out of range (e.g. 9999), deliver last page of results.
     posts = paginator.page(paginator.num_pages)
@@ -83,7 +89,7 @@ def home(request):
       user_id__in=follows).order_by('-pub_date')[0:10]
   image_list = Picture.objects.filter(uploader__exact=request.user.id) \
       .order_by('-upload_date')[0:5]
-  
+
   context = {
     'post_list': post_list,
     'my_post': my_post,
@@ -126,32 +132,48 @@ def upload(request):
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
             new_pic = form.save(commit=False)
-            
+
             new_pic.uploader = request.user
             new_pic.upload_date = timezone.now()
             new_pic.save()
-            
-            image_thread = ImageProcessingThread(new_pic.id)
-            image_thread.start()
-            
+            if(threads < maxthreads):
+                image_thread = ImageProcessingThread(new_pic.id, workQueue)
+                image_thread.start()
+                threads +=1
+            else:
+                workQueue.put(new_pic.id)
+
             return home(request)
     else:
         form = ImageUploadForm()
     return render(request, 'micro/upload.html', {'form': form})
 
+def processPicture(pic_id, q):
+    pic = Picture.objects.get(id=self.image_id)
+    faceArr = rpc.face(pic.image.path)
+    if type(faceArr) is list and len(faceArr) > 0:
+        pic.has_faces = True
+        # for now, just throwing out the array
 
+    pic.save()
 
-class ImageProcessingThread(threading.Thread):
-    def __init__(self, image_id, *args, **kwargs):
-        self.image_id = image_id
-        super(ImageProcessingThread, self).__init__(*args, **kwargs)
-
-    def run(self):
-        pic = Picture.objects.get(id=self.image_id)
-        rpc = xmlrpclib.ServerProxy("http://localhost:8080")
+    while(not q.isEmpty()):
+        pid = q.get()
+        pic = Picture.objects.get(id=pid)
         faceArr = rpc.face(pic.image.path)
         if type(faceArr) is list and len(faceArr) > 0:
             pic.has_faces = True
             # for now, just throwing out the array
-            
+
         pic.save()
+
+
+class ImageProcessingThread(threading.Thread):
+    def __init__(self, image_id, q, *args, **kwargs):
+        self.image_id = image_id
+        self.q = q
+        super(ImageProcessingThread, self).__init__(*args, **kwargs)
+
+    def run(self):
+        processPicture(self.image_id, q)
+        threads -= 1
