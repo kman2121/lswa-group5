@@ -50,9 +50,10 @@ function dojustice() {
     friendDict = []
     console.log(this.responseText);
     var friends = JSON.parse(this.responseText);
-    for (friend in friends['friends']){
+    friends = friends['friends']
+    for (friend in friends){
       console.log(friend);
-      friendDict.push(friends[friend]);
+      friendDict.push(friend);
     }
   }
   $( "#tag" ).autocomplete({
