@@ -162,7 +162,7 @@ def upload(request):
             new_pic.user = request.user
             new_pic.pub_date = timezone.now()
             new_pic.save()
-            redir = "/micro/image" + str(new_pic.id)
+            redir = "/micro/image/" + str(new_pic.id)
             if(cache.get('threads') < cache.get('maxThreads')):
                 image_thread = ImageProcessingThread(new_pic.id, workQueue)
                 image_thread.start()
