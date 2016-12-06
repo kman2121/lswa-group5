@@ -9,41 +9,40 @@
   height:600px;
   width:128px;
   float:left;
-  padding:5px; 
+  padding:5px;
   text-align:center;
 }
 #content {
   width:350px;
   float:left;
-  padding:10px; 
+  padding:10px;
 }
 #footer {
   background-color:black;
   color:white;
   clear:both;
   text-align:center;
-  padding:5px; 
+  padding:5px;
 }
 #status {
   font-size:large;
   padding:10px;
-  height:30px;
 }
 
 #imagelist {
-  
+
 }
 
 #post-container {
-  
+
 }
 
 #post-form {
-  
+
 }
 
 #image-upload-form {
-  
+
 }
 
 .half-column {

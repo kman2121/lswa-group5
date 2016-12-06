@@ -5,16 +5,17 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
+from django.core.cache import cache
 
-from .models import Following, Post, Picture
+from .models import Following, Post
 from .models import FollowingForm, ImageUploadForm, PostForm, MyUserCreationForm
 
 import threading
 import xmlrpclib
 import Queue
 
-threads = 0
-maxThreads = 20
+cache.set('threads', '0')
+cache.set('maxThreads', 20)
 workQueue = Queue.Queue(0)
 rpc = xmlrpclib.ServerProxy("http://localhost:8080")
 
@@ -87,13 +88,10 @@ def home(request):
     follower_id=request.user.id)]
   post_list = Post.objects.filter(
       user_id__in=follows).order_by('-pub_date')[0:10]
-  image_list = Picture.objects.filter(uploader__exact=request.user.id) \
-      .order_by('-upload_date')[0:5]
 
   context = {
     'post_list': post_list,
     'my_post': my_post,
-    'image_list': image_list,
     'post_form' : PostForm,
     'image_upload_form': ImageUploadForm
   }
@@ -132,24 +130,22 @@ def upload(request):
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
             new_pic = form.save(commit=False)
-
-            new_pic.uploader = request.user
-            new_pic.upload_date = timezone.now()
+            new_pic.user = request.user
+            new_pic.pub_date = timezone.now()
             new_pic.save()
-            if(threads < maxthreads):
+            if(cache.get('threads') < cache.get('maxthreads')):
                 image_thread = ImageProcessingThread(new_pic.id, workQueue)
                 image_thread.start()
-                threads +=1
+                cache.incr('threads')
             else:
                 workQueue.put(new_pic.id)
-
             return home(request)
     else:
         form = ImageUploadForm()
     return render(request, 'micro/upload.html', {'form': form})
 
 def processPicture(pic_id, q):
-    pic = Picture.objects.get(id=self.image_id)
+    pic = Post.objects.get(id=self.image_id)
     faceArr = rpc.face(pic.image.path)
     if type(faceArr) is list and len(faceArr) > 0:
         pic.has_faces = True
@@ -176,4 +172,4 @@ class ImageProcessingThread(threading.Thread):
 
     def run(self):
         processPicture(self.image_id, q)
-        threads -= 1
+        cache.decr('threads')
