@@ -37,6 +37,36 @@ function tagMePrompt(){
   return prompt;
 }
 
+function getFriends() {
+  var reqFriends = new XMLHttpRequest();
+  reqFriends.open('GET', '/micro/friends', true);
+  //req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  reqFriends.addEventListener('load', dojustice);
+  reqFriends.send();
+}
+
+function dojustice() {
+  friendDict = []
+  if(this.status >= 200 && this.status < 400){
+    console.log(this.responseText);
+    var friends = JSON.parse(this.responseText);
+    for (friend in friends){
+      friendDict.append(friends[friend]);
+    }
+  }
+  $( "#tag" ).autocomplete({
+    source: friendDict,
+    select: function(event, ui) {
+      //TODO: friend selected, tag logic here
+    /*  console.log(this.value);
+
+      var req = new XMLHttpRequest();
+      req.open("POST", "", true);
+      req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");*/
+    }
+  });
+}
+
 
 function generateTag(event){
   /*As soon as the user wants to tag someone
