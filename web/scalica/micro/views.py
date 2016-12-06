@@ -113,6 +113,31 @@ def post(request):
     form = PostForm
   return render(request, 'micro/post.html', {'form' : form})
 
+def image(request, image_id):
+    if request.method == 'GET':
+        try:
+            image = Post.objects.get(id=image_id)
+        except Post.DoesNotExist:
+            # TODO: redirect to home
+            return
+        
+        my_photo = False
+        if request.user.is_authenticated() and request.user.id == image.user.id:
+            my_photo = True
+        image_url = image.image.url
+        curr_user = request.user
+        
+        context = {
+            'my_photo': my_photo,
+            'image_url': image_url,
+            'user': curr_user
+        }
+        
+        return render(request, 'micro/image.html', context)
+    else:
+        # TODO: redirect to home
+        return
+
 @login_required
 def follow(request):
   if request.method == 'POST':
