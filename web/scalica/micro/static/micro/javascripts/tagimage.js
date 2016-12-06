@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', function(event){
 
 });
 
-//var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
+var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
 
 //Store friends of user
-var friendDict = [];
+//var friendDict = [];
 
 function tagMePrompt(){
   console.log('Generating prompt');
@@ -44,14 +44,16 @@ function generateTag(event){
   /*As soon as the user wants to tag someone
   return a list of their friends that can be accessed
   and eventually used to tag friends */
-
+/*
   var reqFriends = new XMLHttpRequest();
   reqFriends.open('GET', '/api/userfriends', true);
   //req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   reqFriends.addEventListener('load', updateFriendsList);
   reqFriends.send();
   console.log("clicked yes");
-  document.getElementById('tagMePrompt').style.visibility = 'hidden';
+  document.getElementById('tagMePrompt').style.visibility = 'hidden';*/
+
+  
 
   var tagger = document.createElement('div');
   tagger.id ="taggerformdiv";
