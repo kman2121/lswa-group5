@@ -67,19 +67,17 @@ function dojustice() {
       req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       req.addEventListener('load', function(eve){
           if (this.status >= 200 && this.status < 400){
-              var fixme = document.getElementById('tagged-list');
-              while(fixme.childNodes[1]){
-                fixme.removeChild(fixme.childNodes[1]);
+              var fixme = document.getElementById('taglist');
+              while(fixme.childNodes[0]){
+                fixme.removeChild(fixme.childNodes[0]);
               }
               var resText = JSON.parse(this.responseText);
-              var replace = document.createElement("ul");
               for(taggy in resText){
                 var curAdditionText = resText[taggy];
                 var curAddition = document.createElement("li");
                 curAddition.innerHTML = curAdditionText;
-                replace.appendChild(curAddition);
+                fixme.appendChild(curAddition);
               }
-              fixme.appendChild(replace);
           }
       });
       req.send(content);
