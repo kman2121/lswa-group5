@@ -73,8 +73,8 @@ function dojustice() {
               }
               var resText = JSON.parse(this.responseText);
               console.log(resText);
-              for(taggy in resText){
-                var curAdditionText = resText[taggy];
+              for(taggy in resText['tags']){
+                var curAdditionText = resText['tags'][taggy];
                 var curAddition = document.createElement("li");
                 curAddition.innerHTML = curAdditionText;
                 fixme.appendChild(curAddition);
