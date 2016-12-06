@@ -12,7 +12,15 @@
 {% endblock %}
 
 {% block content %}
-<img id="img-page-pic" src="{{ image_url }}" {% if has_faces %} class="has_faces" {% endif %}/>
+<div>
+    <img id="img-page-pic" class="half-column" src="{{ image_url }}" {% if has_faces %} class="has_faces" {% endif %}/>
+    <ul class="half-column">
+        {% for tag in tagged_users.tags %}
+            <li>{{ tag }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
 {% if my_photo %}
 <div id='tagpage'></div>
 {% endif %}

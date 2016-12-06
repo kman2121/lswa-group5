@@ -131,12 +131,16 @@ def image(request, image_id):
         has_faces = image.has_faces
         image_url = image.image.url
         curr_user = request.user
+        users_in_photo = image.tags.all()
+        
+        tagged_users = [o.user.username for o in image.tags.all()]
 
         context = {
             'my_photo': my_photo,
             'image_url': image_url,
             'has_faces': has_faces,
-            'user': curr_user
+            'user': curr_user,
+            'tagged_users': json.dumps({'tags': tagged_users})
         }
 
         return render(request, 'micro/image.html', context)
