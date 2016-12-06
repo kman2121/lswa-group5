@@ -122,19 +122,19 @@ def image(request, image_id):
         except Post.DoesNotExist:
             # TODO: redirect to home
             return
-        
+
         my_photo = False
         if request.user.is_authenticated() and request.user.id == image.user.id:
             my_photo = True
         image_url = image.image.url
         curr_user = request.user
-        
+
         context = {
             'my_photo': my_photo,
             'image_url': image_url,
             'user': curr_user
         }
-        
+
         return render(request, 'micro/image.html', context)
     else:
         # TODO: redirect to home
@@ -162,6 +162,7 @@ def upload(request):
             new_pic.user = request.user
             new_pic.pub_date = timezone.now()
             new_pic.save()
+            redir = "/micro/image/" + str(new_pic.id)
             if(cache.get('threads') < cache.get('maxThreads')):
                 image_thread = ImageProcessingThread(new_pic.id, workQueue)
                 image_thread.start()
@@ -172,7 +173,7 @@ def upload(request):
                 print cache.get('maxThreads')
                 print 'queued'
                 workQueue.put(new_pic.id)
-            return redirect("/micro")
+            return redirect(redir)
     else:
         form = ImageUploadForm()
     return render(request, 'micro/upload.html', {'form': form})
