@@ -72,6 +72,7 @@ function dojustice() {
                 fixme.removeChild(fixme.childNodes[0]);
               }
               var resText = JSON.parse(this.responseText);
+              console.log(resText);
               for(taggy in resText){
                 var curAdditionText = resText[taggy];
                 var curAddition = document.createElement("li");
