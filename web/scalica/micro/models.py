@@ -11,6 +11,12 @@ from django.forms import ModelForm, TextInput, FileInput
 
 # Helper functions
 
+def uuidGen():
+    x = uuid.uuid4()
+    while(Post.objects.get(id = x)):
+        x = uuid.uuid4()
+    return x
+
 # upload_to path determination
 def profile_pic_path(instance, filename):
     return 'images/profiles/{0}.png'.format(instance.user.id)
@@ -37,8 +43,7 @@ class Post(models.Model):
   pub_date = models.DateTimeField('date_posted')
   image = models.ImageField(upload_to=pic_path, null=True)
   has_faces = models.BooleanField(default=False)
-  id = models.CharField(primary_key=True, max_length=64)
-
+  id = models.UUIDField(primary_key=True, default=uuidGen, editable=False)
   # TODO: perhaps set limit_choices_to to only allow a user to tag friends
   tags = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                    related_name='images_tagged_in')

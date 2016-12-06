@@ -107,11 +107,6 @@ def post(request):
     new_post = form.save(commit=False)
     new_post.user = request.user
     new_post.pub_date = timezone.now()
-    new_post.id = hashlib.sha256(str(new_post.user) + str(new_post.pub_date)).hexdigest()
-    i = 0
-    while(Post.objects.get(id = new_post.id)):
-        new_post.id = hashlib.sha256(str(new_post.user) + str(new_post.pub_date) + str(i)).hexdigest()
-        i+=1
     new_post.save()
     return home(request)
   else:
@@ -139,11 +134,6 @@ def upload(request):
             new_pic = form.save(commit=False)
             new_pic.user = request.user
             new_pic.pub_date = timezone.now()
-            new_pic.id = hashlib.sha256(str(new_pic.user) + str(new_pic.pub_date)).hexdigest()
-            i = 0
-            while(Post.objects.get(id = new_pic.id)):
-                new_pic.id = hashlib.sha256(str(new_pic.user) + str(new_pic.pub_date) + str(i)).hexdigest()
-                i+=1
             new_pic.save()
             if(cache.get('threads') < cache.get('maxThreads')):
                 image_thread = ImageProcessingThread(new_pic.id, workQueue)
