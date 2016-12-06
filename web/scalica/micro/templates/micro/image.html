@@ -1,9 +1,8 @@
 {% extends "micro/base.html" %}
 {% load humanize %}
 {% load staticfiles %}
-<script src="{% static '/javascripts/tagimage.js' %}"></script>
 {% block sidebar %}
-
+<script src="{% static '/javascripts/tagimage.js' %}"></script>
 <img src="{{ curr_user.profile.profile_picture.url }}" alt="Generic User"/> <br>
 {{ curr_user.username }}
 
