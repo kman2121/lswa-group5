@@ -10,7 +10,9 @@
 <div id="status">
 {% if my_post %}
   {% if my_post.image %}
-  <img class="imgpost" src="{{ my_post.image.url }}"/><br />
+    <a href="/micro/image/{{post.id}}">
+        <img class="imgpost" src="{{ my_post.image.url }}"/><br />
+    </a>
     {% if my_post.has_faces %}
     <p>TAG ME PLS</p>
     {% endif %}
@@ -49,7 +51,9 @@
         </td>
         <td>
           {% if post.image %}
-          <img class="imgpost" src="{{ post.image.url }}"/><br />
+          <a href="/micro/image/{{post.id}}">
+              <img class="imgpost" src="{{ post.image.url }}"/><br />
+          </a>
           {% endif %}
           {{ post.text }}
           {{ post.id }}
