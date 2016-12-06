@@ -140,7 +140,7 @@ def image(request, image_id):
             'image_url': image_url,
             'has_faces': has_faces,
             'user': curr_user,
-            'tagged_users': json.dumps({'tags': tagged_users})
+            'tagged_users': {'tags': tagged_users}
         }
 
         return render(request, 'micro/image.html', context)
