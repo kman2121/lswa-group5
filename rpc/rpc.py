@@ -18,8 +18,8 @@ def processFaces(URL):
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         x =  cascade.detectMultiScale(gray, 1.3, 5)
         try:
-                print x.tolist()
-	           return x.tolist()
+            print x.tolist()
+            return x.tolist()
         except:
             return []
 
