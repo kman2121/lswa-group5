@@ -37,6 +37,37 @@ function tagMePrompt(){
   return prompt;
 }
 
+function getFriends() {
+  var reqFriends = new XMLHttpRequest();
+  reqFriends.open('GET', '/micro/friends', true);
+  //req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  reqFriends.addEventListener('load', dojustice);
+  reqFriends.send();
+}
+
+function dojustice() {
+  if(this.status >= 200 && this.status < 400){
+    friendDict = []
+    console.log(this.responseText);
+    var friends = JSON.parse(this.responseText);
+    for (friend in friends['friends']){
+      console.log(friend);
+      friendDict.push(friends[friend]);
+    }
+  }
+  $( "#tag" ).autocomplete({
+    source: friendDict,
+    select: function(event, ui) {
+      //TODO: friend selected, tag logic here
+    /*  console.log(this.value);
+
+      var req = new XMLHttpRequest();
+      req.open("POST", "", true);
+      req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");*/
+    }
+  });
+}
+
 
 function generateTag(event){
   /*As soon as the user wants to tag someone
@@ -85,20 +116,7 @@ function generateTag(event){
     document.getElementById('tagpage').appendChild(cancelBtn);
     cancelBtn.addEventListener('click', beginAgain);
   }
-  $( function() {
-    var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
-    $( "#tag" ).autocomplete({
-      source: friendDict,
-      select: function(event, ui) {
-        //TODO: friend selected, tag logic here
-        console.log(this.value);
-
-        var req = new XMLHttpRequest();
-        req.open("POST", "", true);
-        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      }
-    });
-  } );
+  getFriends()
 
 }
 
