@@ -141,9 +141,22 @@ def image(request, image_id):
 
         return render(request, 'micro/image.html', context)
     elif request.method == 'POST':
-        
+        try:
+            image = Post.objects.get(id=image_id)
+        except Post.DoesNotExist:
+            return redirect('/micro')
+        if request.user.is_authenticated() and request.user.id == image.user.id:
+            if(request.POST.get('the_tag')):
+                tag_name = request.POST.get('the_tag')
+                try:
+                    userToTag = Profile.objects.get(username = tag_name)
+                    image.tags.add(userToTag)
+                    image.save()
+                except:
+                    pass
         # handle logic for tagging
-        return
+        return redirect('/micro/image/'+image_id)
+
     else:
         return redirect('/micro/')
 
@@ -165,7 +178,7 @@ def friendlist(request):
     if request.method == 'GET':
         follows = [o.followee.username for o in Following.objects.filter(
             follower_id=request.user.id)]
-        
+
         return HttpResponse(json.dumps({'friends': follows}), content_type="application/json")
     else:
         return redirect('/micro')
