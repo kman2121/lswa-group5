@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.core.cache import cache
+from django.core import serializers
 
 from .models import Following, Post
 from .models import FollowingForm, ImageUploadForm, PostForm, MyUserCreationForm
@@ -14,6 +15,7 @@ import threading
 import xmlrpclib
 import Queue
 import hashlib
+import json
 
 cache.set('threads', 0)
 cache.set('maxThreads', 20)
@@ -115,6 +117,7 @@ def post(request):
     form = PostForm
   return render(request, 'micro/post.html', {'form' : form})
 
+@login_required
 def image(request, image_id):
     if request.method == 'GET':
         try:
@@ -138,6 +141,7 @@ def image(request, image_id):
 
         return render(request, 'micro/image.html', context)
     elif request.method == 'POST':
+        
         # handle logic for tagging
         return
     else:
@@ -155,6 +159,16 @@ def follow(request):
   else:
     form = FollowingForm
   return render(request, 'micro/follow.html', {'form' : form})
+
+@login_required
+def friendlist(request):
+    if request.method == 'GET':
+        follows = [o.followee.username for o in Following.objects.filter(
+            follower_id=request.user.id)]
+        
+        return HttpResponse(json.dumps({'friends': follows}), content_type="application/json")
+    else:
+        return redirect('/micro')
 
 @login_required
 def upload(request):
