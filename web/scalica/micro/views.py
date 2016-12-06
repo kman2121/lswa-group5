@@ -131,15 +131,8 @@ def upload(request):
             new_pic.upload_date = timezone.now()
             new_pic.save()
             
-#            ImageProcessingThread(new_pic.id).start()
-            
-            rpc = xmlrpclib.ServerProxy("http://localhost:8080")
-            faceArr = rpc.face(new_pic.image.path)
-            if type(faceArr) is list and len(faceArr) > 0:
-                new_pic.has_faces = True
-                # for now, just throwing out the array
-
-            new_pic.save()
+            image_thread = ImageProcessingThread(new_pic.id)
+            image_thread.start()
             
             return home(request)
     else:
@@ -156,7 +149,7 @@ class ImageProcessingThread(threading.Thread):
     def run(self):
         pic = Picture.objects.get(id=self.image_id)
         rpc = xmlrpclib.ServerProxy("http://localhost:8080")
-        faceArr = rpc.fce(pic.image.path)
+        faceArr = rpc.face(pic.image.path)
         if type(faceArr) is list and len(faceArr) > 0:
             pic.has_faces = True
             # for now, just throwing out the array
