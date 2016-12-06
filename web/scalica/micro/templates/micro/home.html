@@ -10,7 +10,7 @@
 <div id="status">
 {% if my_post %}
   {% if my_post.image %}
-    <a href="/micro/image/{{post.id}}">
+    <a href="/micro/image/{{my_post.id}}">
         <img class="imgpost" src="{{ my_post.image.url }}"/><br />
     </a>
     {% if my_post.has_faces %}
