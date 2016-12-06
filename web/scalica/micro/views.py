@@ -146,26 +146,21 @@ def image(request, image_id):
 
         return render(request, 'micro/image.html', context)
     elif request.method == 'POST':
-        print 'received post'
         try:
             image = Post.objects.get(id=image_id)
         except Post.DoesNotExist:
             return redirect('/micro')
-        print 'found image'
         if request.user.is_authenticated() and request.user.id == image.user.id:
-            print 'authed user is owner'
             if(request.POST.get('the_tag')):
-                print 'tag found'
                 tag_name = request.POST.get('the_tag')
                 try:
                     userToTag = User.objects.get(username = tag_name)
                     image.tags.add(userToTag)
                     image.save()
-                    print 'tagged'
                 except:
                     pass
         # handle logic for tagging
-        return redirect('/micro/image/'+image_id)
+        return redirect('');
 
     else:
         return redirect('/micro/')
