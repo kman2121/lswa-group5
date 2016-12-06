@@ -157,9 +157,10 @@ def image(request, image_id):
                     image.save()
                 except:
                     pass
-        # handle logic for tagging
-        return redirect('/micro/image/'+image_id)
+        
+        tagged_users = [o.username for o in image.tags.all()]
 
+        return HttpResponse(json.dumps({'tags': tagged_users}), content_type="application/json")
     else:
         return redirect('/micro/')
 
