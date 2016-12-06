@@ -117,7 +117,6 @@ def post(request):
     form = PostForm
   return render(request, 'micro/post.html', {'form' : form})
 
-@login_required
 def image(request, image_id):
     if request.method == 'GET':
         try:
@@ -133,7 +132,7 @@ def image(request, image_id):
         curr_user = request.user
         users_in_photo = image.tags.all()
         tagged_users = [o.username for o in image.tags.all()]
-        
+
         context = {
             'my_photo': my_photo,
             'image_url': image_url,
