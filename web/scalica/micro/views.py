@@ -132,8 +132,8 @@ def image(request, image_id):
         image_url = image.image.url
         curr_user = request.user
         users_in_photo = image.tags.all()
-
         tagged_users = [o.username for o in image.tags.all()]
+        
         context = {
             'my_photo': my_photo,
             'image_url': image_url,
