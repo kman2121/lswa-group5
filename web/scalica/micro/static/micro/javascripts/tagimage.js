@@ -11,10 +11,14 @@ document.addEventListener('DOMContentLoaded', function(event){
   }
   tgpg.appendChild(prompt);
   document.getElementById("yesBtn").addEventListener('click', generateTag);
-
+  var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
+  $( function() {
+    $( "#tagBox" ).autocomplete({
+      source: friendDict
+    });
+  } );
 });
 
-var friendDict = ['Bob', 'Billy', 'Betty', 'Anthony', 'Betsy', 'Bill'];
 
 //Store friends of user
 //var friendDict = [];
@@ -94,7 +98,7 @@ function generateTag(event){
 
 }
 
-function findFriends(event){
+/*function findFriends(event){
   console.log("Finding friends");
   //access friends list and generate click-able list of first five
   //whose names begin with the currently entered text
@@ -166,7 +170,7 @@ function findFriends(event){
       document.getElementById('tagpage').appendChild(notFound);
     }
   }
-}
+}*/
 
 function beginAgain(eve){
   var restart = document.getElementById('tagpage');
@@ -205,14 +209,14 @@ function tagPhoto(event){
                  "the_image="+url); // data sent with the post request
 };
 
-function updateFriendsList(){
+/*function updateFriendsList(){
   if(this.status >= 200 && this.status < 400){
     var friends = JSON.parse(this.responseText);
     for (friend in friends){
       friendDict.append(friends[friend]);
     }
   }
-}
+}*/
 /*
 function createBox(coordArr, imgIdr){
   var box = document.createElement('div');
