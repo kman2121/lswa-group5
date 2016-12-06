@@ -14,11 +14,11 @@ import uuid
 
 def uuidGen():
     x = uuid.uuid4()
-    while(True):
+    while True:
         try:
             Post.objects.get(id = x)
             x = uuid.uuid4()
-        except:
+        except Post.DoesNotExist:
             return x
 
 # upload_to path determination
@@ -51,6 +51,7 @@ class Post(models.Model):
   # TODO: perhaps set limit_choices_to to only allow a user to tag friends
   tags = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                    related_name='images_tagged_in')
+    
   def __str__(self):
     if len(self.text) < 16:
       desc = self.text

@@ -1,0 +1,13 @@
+{% extends "micro/base.html" %}
+{% load humanize %}
+{% load staticfiles %}
+{% block sidebar %}
+
+<img src="{{ curr_user.profile.profile_picture.url }}" alt="Generic User"/> <br>
+{{ curr_user.username }}
+
+{% endblock %}
+
+{% block content %}
+<img src="{{ image_url }}" width="600" />
+{% endblock %}
