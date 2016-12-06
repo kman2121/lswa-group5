@@ -126,19 +126,23 @@ def image(request, image_id):
         my_photo = False
         if request.user.is_authenticated() and request.user.id == image.user.id:
             my_photo = True
+        has_faces = image.has_faces
         image_url = image.image.url
         curr_user = request.user
 
         context = {
             'my_photo': my_photo,
             'image_url': image_url,
+            'has_face': has_face,
             'user': curr_user
         }
 
         return render(request, 'micro/image.html', context)
-    else:
-        # TODO: redirect to home
+    elif request.method == 'POST':
+        # handle logic for tagging
         return
+    else:
+        return redirect('/micro/')
 
 @login_required
 def follow(request):
