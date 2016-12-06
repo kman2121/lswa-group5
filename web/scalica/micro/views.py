@@ -5,9 +5,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
+
 from .models import Following, Post, Picture
 from .models import FollowingForm, ImageUploadForm, PostForm, MyUserCreationForm
 
+import threading
 import xmlrpclib
 
 
@@ -129,15 +131,34 @@ def upload(request):
             new_pic.upload_date = timezone.now()
             new_pic.save()
             
+#            ImageProcessingThread(new_pic.id).start()
+            
             rpc = xmlrpclib.ServerProxy("http://localhost:8080")
             faceArr = rpc.face(new_pic.image.path)
             if type(faceArr) is list and len(faceArr) > 0:
                 new_pic.has_faces = True
                 # for now, just throwing out the array
-            
+
             new_pic.save()
             
             return home(request)
     else:
         form = ImageUploadForm()
     return render(request, 'micro/upload.html', {'form': form})
+
+
+
+class ImageProcessingThread(threading.Thread):
+    def __init__(self, image_id, *args, **kwargs):
+        self.image_id = image_id
+        super(ImageProcessingThread, self).__init__(*args, **kwargs)
+
+    def run(self):
+        pic = Picture.objects.get(id=self.image_id)
+        rpc = xmlrpclib.ServerProxy("http://localhost:8080")
+        faceArr = rpc.fce(pic.image.path)
+        if type(faceArr) is list and len(faceArr) > 0:
+            pic.has_faces = True
+            # for now, just throwing out the array
+            
+        pic.save()
