@@ -10,7 +10,6 @@ from django.forms import ModelForm, TextInput, FileInput
 
 import uuid
 
-
 # Helper functions
 
 def uuidGen():
