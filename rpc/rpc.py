@@ -18,12 +18,11 @@ def processFaces(URL):
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         x =  cascade.detectMultiScale(gray, 1.3, 5)
         try:
-            y = np.array_str(x)
-            return ','.join(y.split())
+	    return x.tolist()
         except:
-            return "[]"
+            return []
 
-server = SimpleXMLRPCServer.SimpleXMLRPCServer(("localhost", 8080))
+server = SimpleXMLRPCServer.SimpleXMLRPCServer(("0.0.0.0", 80))
 server.register_function(processFaces, 'face')
 print('Serving XML-RPC on localhost port 8080')
 server.serve_forever()
