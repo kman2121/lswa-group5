@@ -68,8 +68,8 @@ function dojustice() {
       req.addEventListener('load', function(eve){
           if (this.status >= 200 && this.status < 400){
               var fixme = document.getElementById('tagged-list');
-              while(fixme.childNodes[0]){
-                fixme.removeChild(fixme.childNodes[0]);
+              while(fixme.childNodes[1]){
+                fixme.removeChild(fixme.childNodes[1]);
               }
               var resText = JSON.parse(this.responseText);
               var replace = document.createElement("ul");
