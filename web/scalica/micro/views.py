@@ -155,7 +155,7 @@ def processPicture(pic_id, q):
     print faceArr
     print type(faceArr)
     print len(faceArr)
-    if type(faceArr) is <type 'list'> and len(faceArr) > 0:
+    if type(faceArr) is list and len(faceArr) > 0:
         pic.has_faces = True
         print 'tru'
         # for now, just throwing out the array
