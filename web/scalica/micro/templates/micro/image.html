@@ -13,7 +13,9 @@
 
 {% block content %}
 <div>
-    <img id="img-page-pic" class="half-column" src="{{ image_url }}" {% if has_faces %} class="has_faces" {% endif %}/>
+    <div class="half-column">
+        <img id="img-page-pic" src="{{ image_url }}" {% if has_faces %} class="has_faces" {% endif %}/>
+    </div>
     <div id="tagged-list" class="half-column">
         <p>Friends in this photo:</p>
         <ul>
