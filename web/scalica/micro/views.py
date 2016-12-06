@@ -143,7 +143,7 @@ def upload(request):
                 print cache.get('maxThreads')
                 print 'queued'
                 workQueue.put(new_pic.id)
-            return redirect("micro")
+            return redirect("/micro")
     else:
         form = ImageUploadForm()
     return render(request, 'micro/upload.html', {'form': form})
