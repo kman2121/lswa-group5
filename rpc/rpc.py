@@ -3,6 +3,7 @@ import numpy as np
 import cv2
 from PIL import Image
 import urllib
+import re
 
 cascadepath = 'haarcascade_frontalface_default.xml'
 
@@ -17,7 +18,8 @@ def processFaces(URL):
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         x =  cascade.detectMultiScale(gray, 1.3, 5)
         try:
-            return np.array_str(x)
+            y = np.array_str(x)
+            return ','.join(y.split())
         except:
             return "[]"
 
