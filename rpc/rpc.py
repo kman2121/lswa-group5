@@ -16,11 +16,10 @@ def processFaces(URL):
     else:
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         x =  cascade.detectMultiScale(gray, 1.3, 5)
-        try {
-            return np.array_str(x);
-        } except(err) {
-            return "[]";
-        }
+        try:
+            return np.array_str(x)
+        except:
+            return "[]"
 
 server = SimpleXMLRPCServer.SimpleXMLRPCServer(("localhost", 8080))
 server.register_function(processFaces, 'face')
