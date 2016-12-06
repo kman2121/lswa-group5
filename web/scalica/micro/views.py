@@ -140,6 +140,7 @@ def image(request, image_id):
         return render(request, 'micro/image.html', context)
     elif request.method == 'POST':
         # handle logic for tagging
+        return
     else:
         return redirect('/micro/')
 
