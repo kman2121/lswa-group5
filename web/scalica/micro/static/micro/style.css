@@ -60,6 +60,7 @@
   vertical-align: top;
   padding: 10px;
   min-width: 300px;
+  position: relative;
 }
 
 #id_text {
@@ -122,4 +123,5 @@ div#content li {
 .tagbox {
   border-style: solid;
   position: absolute;
+  z-index: 1000;
 }
