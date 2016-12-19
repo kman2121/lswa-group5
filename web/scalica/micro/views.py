@@ -10,7 +10,7 @@ from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 
 
-from .models import Following, Post
+from .models import Following, Post, Tag
 from .models import FollowingForm, ImageUploadForm, PostForm, MyUserCreationForm
 
 import threading
@@ -220,7 +220,7 @@ def processPicture(pic_id, q):
     print 'called rpc'
     if type(faceArr) is list and len(faceArr) > 0:
         for i in faceArr:
-            new_tag = Tags.create(pic, i[0], i[1], i[2], i[3])
+            new_tag = Tag.create(pic, i[0], i[1], i[2], i[3])
             new_tag.save()
             print new_tag;
         pic.has_faces = True
