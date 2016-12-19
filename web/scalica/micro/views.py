@@ -6,14 +6,18 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.core.cache import cache
+from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
-from .models import Following, Post
+
+from .models import Following, Post, Tag
 from .models import FollowingForm, ImageUploadForm, PostForm, MyUserCreationForm
 
 import threading
 import xmlrpclib
 import Queue
 import hashlib
+import json
 
 cache.set('threads', 0)
 cache.set('maxThreads', 20)
@@ -115,13 +119,13 @@ def post(request):
     form = PostForm
   return render(request, 'micro/post.html', {'form' : form})
 
+@csrf_exempt
 def image(request, image_id):
     if request.method == 'GET':
         try:
             image = Post.objects.get(id=image_id)
         except Post.DoesNotExist:
-            # TODO: redirect to home
-            return
+            return redirect('/micro')
 
         my_photo = False
         if request.user.is_authenticated() and request.user.id == image.user.id:
@@ -129,18 +133,35 @@ def image(request, image_id):
         has_faces = image.has_faces
         image_url = image.image.url
         curr_user = request.user
+        users_in_photo = image.tags.all()
+        tagged_users = [o.user for o in image.tags.all() if not o.user == None]
 
         context = {
             'my_photo': my_photo,
             'image_url': image_url,
-            'has_face': has_face,
-            'user': curr_user
+            'has_faces': has_faces,
+            'user': curr_user,
+            'tagged_users': {'tags': tagged_users}
         }
 
         return render(request, 'micro/image.html', context)
     elif request.method == 'POST':
-        # handle logic for tagging
-        return
+        try:
+            image = Post.objects.get(id=image_id)
+        except Post.DoesNotExist:
+            return redirect('/micro')
+        if request.user.is_authenticated() and request.user.id == image.user.id:
+            if(request.POST.get('the_tag')):
+                tag_name = request.POST.get('the_tag')
+                try:
+                    userToTag = User.objects.get(username = tag_name)
+                    image.tags.add(userToTag)
+                    image.save()
+                except:
+                    pass
+
+        tagged_users = [o.username for o in image.tags.all()]
+        return HttpResponse(json.dumps({'tags': tagged_users}), content_type="application/json")
     else:
         return redirect('/micro/')
 
@@ -156,6 +177,17 @@ def follow(request):
   else:
     form = FollowingForm
   return render(request, 'micro/follow.html', {'form' : form})
+
+@login_required
+def friendlist(request):
+    if request.method == 'GET':
+        follows = [o.followee.username for o in Following.objects.filter(
+            follower_id=request.user.id)]
+        follows.append(request.user.username)
+
+        return HttpResponse(json.dumps({'friends': follows}), content_type="application/json")
+    else:
+        return redirect('/micro')
 
 @login_required
 def upload(request):
@@ -187,9 +219,11 @@ def processPicture(pic_id, q):
     faceArr = rpc.face(pic.image.path)
     print 'called rpc'
     if type(faceArr) is list and len(faceArr) > 0:
+        for i in faceArr:
+            new_tag = Tag.create(pic, i[0], i[1], i[2], i[3], None)
+            new_tag.save()
         pic.has_faces = True
         print 'face detected'
-        # for now, just throwing out the array
 
     pic.save()
 

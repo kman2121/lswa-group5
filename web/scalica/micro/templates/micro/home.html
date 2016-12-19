@@ -10,12 +10,9 @@
 <div id="status">
 {% if my_post %}
   {% if my_post.image %}
-    <a href="/micro/image/{{post.id}}">
+    <a href="/micro/image/{{my_post.id}}">
         <img class="imgpost" src="{{ my_post.image.url }}"/><br />
     </a>
-    {% if my_post.has_faces %}
-    <p>TAG ME PLS</p>
-    {% endif %}
   {% endif %}
  {{ my_post.text }} ({{ my_post.pub_date|naturaltime }})
 {% endif %}
@@ -56,7 +53,6 @@
           </a>
           {% endif %}
           {{ post.text }}
-          {{ post.id }}
         </td>
       </tr>
       <tr>

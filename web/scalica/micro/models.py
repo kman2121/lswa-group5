@@ -48,16 +48,26 @@ class Post(models.Model):
   image = models.ImageField(upload_to=pic_path, null=True)
   has_faces = models.BooleanField(default=False)
   id = models.UUIDField(primary_key=True, default=uuidGen, editable=False)
-  # TODO: perhaps set limit_choices_to to only allow a user to tag friends
-  tags = models.ManyToManyField(settings.AUTH_USER_MODEL,
-                                   related_name='images_tagged_in')
-    
+
   def __str__(self):
     if len(self.text) < 16:
       desc = self.text
     else:
       desc = self.text[0:16]
     return self.user.username + ':' + desc
+
+class Tag(models.Model):
+    x = models.IntegerField()
+    y = models.IntegerField()
+    height = models.IntegerField()
+    width = models.IntegerField()
+    post = models.ForeignKey(Post, related_name = 'tags')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name = 'tagged_posts', null=True, on_delete = models.SET_NULL)
+
+    @classmethod
+    def create(cls, post, x, y, w, h, user):
+        book = cls(post=post, x=x, y=y, width=w, height=h, user=user)
+        return book
 
 class Following(models.Model):
   follower = models.ForeignKey(settings.AUTH_USER_MODEL,

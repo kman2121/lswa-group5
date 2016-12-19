@@ -50,7 +50,7 @@
   max-width:128px;
 }
 
-#image-page-pic {
+#img-page-pic {
     max-height: 600px;
     max-width: 600px;
 }
@@ -60,6 +60,13 @@
   vertical-align: top;
   padding: 10px;
   min-width: 300px;
+}
+
+#id_text {
+    width: 100%;
+}
+#id_image {
+    width: 199px;
 }
 
 a:link {
