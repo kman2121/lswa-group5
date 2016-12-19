@@ -142,7 +142,7 @@ def image(request, image_id):
             'has_faces': has_faces,
             'user': curr_user,
             'tagged_users': {'tags': tagged_users},
-            'faces_in_photo': facess_in_photo
+            'faces_in_photo': faces_in_photo
         }
 
         return render(request, 'micro/image.html', context)
