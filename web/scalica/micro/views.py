@@ -133,8 +133,8 @@ def image(request, image_id):
         has_faces = image.has_faces
         image_url = image.image.url
         curr_user = request.user
-        users_in_photo = image.tags.all()
-        tagged_users = [o.username for o in image.tags.all()]
+        users_in_photo = image.tags
+        tagged_users = [o.username for o in image.tags]
         for i in image.tags:
             print(i.x)
 
