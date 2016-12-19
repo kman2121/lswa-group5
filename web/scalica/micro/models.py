@@ -61,8 +61,8 @@ class Tag(models.Model):
     y = models.IntegerField()
     height = models.IntegerField()
     width = models.IntegerField()
-    post = models.ForeignKey(Post, related_name = 'tags', null=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name = 'tagged_posts', on_delete = models.SET_NULL)
+    post = models.ForeignKey(Post, related_name = 'tags')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name = 'tagged_posts', null=True, on_delete = models.SET_NULL)
 
 class Following(models.Model):
   follower = models.ForeignKey(settings.AUTH_USER_MODEL,
