@@ -138,6 +138,7 @@ def image(request, image_id):
         scaleFactor = float(600)/max(image.image.height, image.image.width)
         if(scaleFactor > 1):
             scaleFactor = 1
+        scaleFactor = 1/scaleFactor
         context = {
             'my_photo': my_photo,
             'image_url': image_url,
