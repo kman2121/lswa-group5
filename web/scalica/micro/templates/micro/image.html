@@ -16,7 +16,8 @@
     <div class="half-column">
         <img id="img-page-pic" src="{{ image_url }}" {% if has_faces %} class="has_faces" {% endif %}/>
         {% for face in faces_in_photo %}
-        <div id="{{ forloop.counter }}" class="tagbox" style="margin-left:{{ face.x }};margin-top:{{ face.y }};width:{{ face.width }};height:{{ face.height}}"
+        <div id="{{ forloop.counter }}" class="tagbox" style="margin-left:{{ face.x }};margin-top:{{ face.y }};width:{{ face.width }};height:{{ face.height}}"></div>
+        {% endfor %}
     </div>
     <div id="tagged-list" class="half-column">
         <p>Friends in this photo:</p>
