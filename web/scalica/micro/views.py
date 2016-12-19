@@ -133,9 +133,9 @@ def image(request, image_id):
         has_faces = image.has_faces
         image_url = image.image.url
         curr_user = request.user
-        users_in_photo = image.tags
+        users_in_photo = image.tags.all()
         print users_in_photo
-        tagged_users = [o.username for o in image.tags]
+        tagged_users = [o.username for o in image.tags.all()]
         for i in image.tags:
             print(i.x)
 
