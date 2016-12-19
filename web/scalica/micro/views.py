@@ -135,6 +135,8 @@ def image(request, image_id):
         curr_user = request.user
         users_in_photo = image.tags.all()
         tagged_users = [o.username for o in image.tags.all()]
+        for i in image.tags:
+            print(i.x)
 
         context = {
             'my_photo': my_photo,
@@ -222,10 +224,8 @@ def processPicture(pic_id, q):
         for i in faceArr:
             new_tag = Tag.create(pic, i[0], i[1], i[2], i[3], None)
             new_tag.save()
-            print new_tag;
         pic.has_faces = True
         print 'face detected'
-        # for now, just throwing out the array
 
     pic.save()
 
