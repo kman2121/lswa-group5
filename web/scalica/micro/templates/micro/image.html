@@ -16,7 +16,7 @@
     <div class="half-column">
         <img id="img-page-pic" src="{{ image_url }}" {% if has_faces %} class="has_faces" {% endif %}/>
         {% for face in faces_in_photo %}
-        <div id="{{ forloop.counter }}" class="tagbox" style="margin-left:{% widthratio face.x 1 scaleFactor %}px;margin-top:{% widthratio face.y 1 scaleFactor %}px;width:{% widthratio face.width 1 scaleFactor %}px;height:{% widthratio face.height 1 scaleFactor %}px"></div>
+        <div id="{{ forloop.counter }}" class="tagbox" style="margin-left:{% widthratio face.x 1 scaleFactor %}px;margin-top:{% widthratio face.y 1 scaleFactor %}px;width:{% widthratio face.width 1 scaleFactor %}px;height:{% widthratio face.height 1 scaleFactor %}px">{{scaleFactor}}</div>
         {% endfor %}
     </div>
     <div id="tagged-list" class="half-column">
