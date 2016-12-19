@@ -66,10 +66,7 @@ class Tag(models.Model):
 
     @classmethod
     def create(cls, post, x, y, w, h, user):
-        if(user):
-            book = cls(post=post, x=x, y=y, width=w, height=h, user=user)
-        else:
-            book = cls(post=post, x=x, y=y, width=w, height=h, user=null)
+        book = cls(post=post, x=x, y=y, width=w, height=h, user=null)
         return book
 
 class Following(models.Model):
