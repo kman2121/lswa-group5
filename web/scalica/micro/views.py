@@ -159,7 +159,7 @@ def image(request, image_id):
                     image.save()
                 except:
                     pass
-                
+
         tagged_users = [o.username for o in image.tags.all()]
         return HttpResponse(json.dumps({'tags': tagged_users}), content_type="application/json")
     else:
@@ -219,6 +219,10 @@ def processPicture(pic_id, q):
     faceArr = rpc.face(pic.image.path)
     print 'called rpc'
     if type(faceArr) is list and len(faceArr) > 0:
+        for i in faceArr:
+            new_tag = Tags.create(pic, i[0], i[1], i[2], i[3])
+            new_tag.save()
+            print new_tag;
         pic.has_faces = True
         print 'face detected'
         # for now, just throwing out the array

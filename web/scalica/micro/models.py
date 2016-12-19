@@ -64,6 +64,14 @@ class Tag(models.Model):
     post = models.ForeignKey(Post, related_name = 'tags')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name = 'tagged_posts', null=True, on_delete = models.SET_NULL)
 
+    @classmethod
+    def create(cls, post, x, y, w, h, user):
+        if(user):
+            book = cls(post=post, x=x, y=y, width=w, height=h, user=user)
+        else:
+            book = cls(post=post, x=x, y=y, width=w, height=h, user=null)
+        return book
+
 class Following(models.Model):
   follower = models.ForeignKey(settings.AUTH_USER_MODEL,
                                related_name="user_follows")
