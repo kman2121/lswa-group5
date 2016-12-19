@@ -135,7 +135,7 @@ def image(request, image_id):
         curr_user = request.user
         users_in_photo = image.tags.all()
         print users_in_photo
-        tagged_users = [o.username for o in image.tags.all()]
+        tagged_users = [o.user for o in image.tags.all()]
         for i in image.tags:
             print(i.x)
 
