@@ -136,7 +136,7 @@ def image(request, image_id):
         users_in_photo = image.tags.all()
         print users_in_photo
         tagged_users = [o.user for o in image.tags.all()]
-        for i in image.tags:
+        for i in image.tags.all():
             print(i.x)
 
         context = {
