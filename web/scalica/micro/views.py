@@ -135,7 +135,8 @@ def image(request, image_id):
         curr_user = request.user
         faces_in_photo = image.tags.all()
         tagged_users = [o.user for o in image.tags.all() if not o.user == None]
-        scaleFactor = 600/max(image.image.height, image.image.width)
+        print image.image.height
+        scaleFactor = float(600)/max(image.image.height, image.image.width)
         if(scaleFactor > 1):
             scaleFactor = 1
         context = {
