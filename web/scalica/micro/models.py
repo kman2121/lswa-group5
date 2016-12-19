@@ -51,13 +51,20 @@ class Post(models.Model):
   # TODO: perhaps set limit_choices_to to only allow a user to tag friends
   tags = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                    related_name='images_tagged_in')
-    
+
   def __str__(self):
     if len(self.text) < 16:
       desc = self.text
     else:
       desc = self.text[0:16]
     return self.user.username + ':' + desc
+
+class Tag(models.Model):
+    x = models.IntegerField(min_value=0)
+    y = models.IntegerField(min_value=0)
+    height = models.IntegerField(min_value=0)
+    width = models.IntegerField(min_value=0)
+    user = models.ForeignKey(Post, null=True)
 
 class Following(models.Model):
   follower = models.ForeignKey(settings.AUTH_USER_MODEL,
