@@ -220,7 +220,7 @@ def processPicture(pic_id, q):
     print 'called rpc'
     if type(faceArr) is list and len(faceArr) > 0:
         for i in faceArr:
-            new_tag = Tag.create(pic, i[0], i[1], i[2], i[3], null)
+            new_tag = Tag.create(pic, i[0], i[1], i[2], i[3], None)
             new_tag.save()
             print new_tag;
         pic.has_faces = True
