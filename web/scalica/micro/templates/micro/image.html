@@ -14,10 +14,10 @@
 {% block content %}
 <div>
     <div class="half-column">
-        <img id="img-page-pic" src="{{ image_url }}" {% if has_faces %} class="has_faces" {% endif %}/>
         {% for face in faces_in_photo %}
         <div id="{{ forloop.counter }}" class="tagbox" style="margin-left:{% widthratio face.x scaleFactor 1 %}px;margin-top:{% widthratio face.y scaleFactor 1 %}px;width:{% widthratio face.width scaleFactor 1 %}px;height:{% widthratio face.height scaleFactor 1 %}px">{{face.y}}{{scaleFactor}}</div>
         {% endfor %}
+        <img id="img-page-pic" src="{{ image_url }}" {% if has_faces %} class="has_faces" {% endif %}/>
     </div>
     <div id="tagged-list" class="half-column">
         <p>Friends in this photo:</p>
