@@ -79,6 +79,7 @@ function dojustice() {
                 curAddition.innerHTML = curAdditionText;
                 fixme.appendChild(curAddition);
               }
+
           }
       });
       req.send(content);
@@ -99,8 +100,11 @@ function generateTag(event){
   reqFriends.send();
   console.log("clicked yes");
   document.getElementById('tagMePrompt').style.visibility = 'hidden';*/
-
-
+  var boxes = document.getElementsByClassName('tagbox');
+  for (b in boxes){
+    var box = boxes[b];
+    box.addEventListener('click', boxClick);
+  }
 
   var tagger = document.createElement('div');
   tagger.id ="taggerformdiv";
@@ -119,8 +123,9 @@ function generateTag(event){
   form.appendChild(tagLabel);
   form.appendChild(tagBox);
   tagger.appendChild(form);
-
   document.getElementById('tagpage').appendChild(tagger);
+
+
   //tagBox.addEventListener("change", findFriends);
 
   var cancelBtn = document.getElementById('cancel');
