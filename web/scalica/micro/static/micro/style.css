@@ -121,13 +121,12 @@ div#content li {
 }
 
 .tagbox {
-  border-style: hidden;
-  position: fixed;
+ /* border-style: hidden;*/
+  position: absolute;
   z-index: 1000;
  
 }
-
+/*
 .tagbox:hover {
   border-style: solid;
-  
-}
+}*/

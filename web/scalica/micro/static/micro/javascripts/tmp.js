@@ -1,14 +1,25 @@
-
 document.addEventListener("DOMContentLoaded", function(event) {
-  var list = document.getElementsByClassName('tagbox');
-  for (var i = 0; i < list.length; i++) {
-    list[i].addEventListener("mouseover", appear(list[i].id));
-    list[i].addEventListener("mouseout", disappear(list[i].id));
+  var items = document.getElementsByClassName("tagbox");
+  for( var i = 0; i < items.length; i++ ){
+    (function(i){
+        items[i].addEventListener('mouseover', function(event) {
+            reveal(items[i].id);
+        }, false);
+        items[i].addEventListener('mouseout', function(event) {
+            hide(items[i].id);
+        }, false);
+        /*items[i].addEventListener('click', function(event) {
+            myThirdFunction(items[i].id);
+        }, false);*/
+    })(i);
   }
-  
-  function appear(id) {
-    document.getElementById(id).style.visibility = 'visible';
-  function disappear(id) {
-    document.getElementById(id).style.visibility = 'hidden';
+
+  function reveal(id) {
+      document.getElementById(id).style.borderStyle ="solid";
+  }
+
+  function hide(id) {
+          document.getElementById(id).style.borderStyle = "hidden";
+
   }
 });
