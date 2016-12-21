@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(event){
   var tgpg = document.getElementById('tagpage');
   var prompt = tagMePrompt();
+  var tags;
   var hasFaces = document.getElementById('img-page-pic').classList.contains('has_faces');
   if(hasFaces){
     prompt.childNodes[0].innerHTML = "Face detected! Would you like to tag the image?";
@@ -42,6 +43,18 @@ function getFriends() {
   reqFriends.open('GET', '/micro/friends', true);
   //req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   reqFriends.addEventListener('load', dojustice);
+  reqFriends.send();
+}
+
+function getTags() {
+  var reqFriends = new XMLHttpRequest();
+  reqFriends.open('GET', 'tags', true);
+  reqFriends.addEventListener('load', function() {
+    if(this.status >= 200 && this.status < 400){
+      console.log(this.responseTest);
+      tags = JSON.parse(this.responseTest);
+    }
+  });
   reqFriends.send();
 }
 
@@ -143,80 +156,6 @@ function generateTag(event){
 
 }
 
-/*function findFriends(event){
-  console.log("Finding friends");
-  //access friends list and generate click-able list of first five
-  //whose names begin with the currently entered text
-
-  //get current input
-  var inputTag = document.getElementById('tag');
-  var findFriendKey = inputTag.value;
-  console.log(findFriendKey);
-  //collect list of friends whose name matches current query
-  var suggested = friendDict.filter(function(ele){
-    var l = findFriendKey.length;
-    if(ele.substring(0,l) === findFriendKey){
-      console.log(ele+" found true");
-      return true;
-    }
-    else{
-      console.log(ele+" found false");
-      return false;
-    }
-  });
-  console.log(suggested);
-  //reset display
-  if(document.getElementById("notFound")){
-    (document.getElementById("notFound")).style.display = 'none';
-  }
-
-  if(document.getElementById('suggestedFriends')){
-    var clearMe = document.getElementById('suggestedFriends');
-    while(clearMe.childNodes[0]){
-      clearMe.removeChild(clearMe.childNodes[0]);
-    }
-    var ul = document.getElementById('suggestedFriends');
-  }
-  else{
-    var ul = document.createElement('ul');
-    ul.id = "suggestedFriends";
-    document.getElementById('tagpage').appendChild(ul);
-  }
-
-  //display first five friends whose name matches current query
-  var tracker = 0;
-  for(var i = 0; i < 5; i++){
-    console.log("creating buttons");
-    if(suggested[i]){
-      console.log(suggested[i]);
-      tracker ++;
-      var curEle = document.createElement('li');
-      var curBtn = document.createElement('button');
-      curEle.appendChild(curBtn);
-      curBtn.id = suggested[i];
-      curBtn.innerHTML = suggested[i];
-      curBtn.addEventListener('click', tagPhoto);
-      ul.appendChild(curEle);
-    }
-    else{
-      break;
-    }
-  }
-  //if no friends match the current query then prompt the user to change tag
-  console.log(suggested.length);
-  if (suggested.length === 0){
-    if(document.getElementById("notFound")){
-      document.getElementById("notFound").style.display = 'block';
-    }
-    else{
-      var notFound = document.createElement('div');
-      notFound.id = "notFound";
-      notFound.innerHTML = "Hmm... it seems you have no friends by that name";
-      document.getElementById('tagpage').appendChild(notFound);
-    }
-  }
-}*/
-
 function beginAgain(eve){
   var restart = document.getElementById('tagpage');
   while(restart.childNodes[0]){
@@ -255,12 +194,3 @@ function tagPhoto(event){
     req.send( "the_tag="+userToBeTagged+"&"+
                  "the_image="+url); // data sent with the post request
 };
-
-/*function updateFriendsList(){
-  if(this.status >= 200 && this.status < 400){
-    var friends = JSON.parse(this.responseText);
-    for (friend in friends){
-      friendDict.append(friends[friend]);
-    }
-  }
-}*/

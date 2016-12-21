@@ -119,6 +119,12 @@ def post(request):
     form = PostForm
   return render(request, 'micro/post.html', {'form' : form})
 
+def tags(request, image_id):
+    if request.method == 'GET':
+        try:
+            image = Post.objects.get(id=image_id)
+            return HttpResponse(json.dumps({'tags':image.tags.all()}))
+
 @csrf_exempt
 def image(request, image_id):
     if request.method == 'GET':
