@@ -57,16 +57,17 @@ class Post(models.Model):
     return self.user.username + ':' + desc
 
 class Tag(models.Model):
+    id = models.IntegerField()
     x = models.IntegerField()
     y = models.IntegerField()
     height = models.IntegerField()
     width = models.IntegerField()
     post = models.ForeignKey(Post, related_name = 'tags')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name = 'tagged_posts', null=True, on_delete = models.SET_NULL)
-
     @classmethod
     def create(cls, post, x, y, w, h, user):
-        book = cls(post=post, x=x, y=y, width=w, height=h, user=user)
+        thisId = len(Post.objects.get(id = post.id).tags.all())
+        book = cls(post=post, x=x, y=y, width=w, height=h, user=user, id = thisId)
         return book
 
 class Following(models.Model):
