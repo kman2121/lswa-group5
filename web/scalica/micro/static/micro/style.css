@@ -121,7 +121,13 @@ div#content li {
 }
 
 .tagbox {
-  border-style: solid;
-  position: absolute;
+  border-style: hidden;
+  position: fixed;
   z-index: 1000;
+ 
+}
+
+.tagbox:hover {
+  border-style: solid;
+  
 }
