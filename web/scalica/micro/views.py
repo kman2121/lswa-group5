@@ -133,15 +133,20 @@ def image(request, image_id):
         has_faces = image.has_faces
         image_url = image.image.url
         curr_user = request.user
-        users_in_photo = image.tags.all()
+        faces_in_photo = image.tags.all()
         tagged_users = [o.user for o in image.tags.all() if not o.user == None]
-
+        scaleFactor = float(600)/max(image.image.height, image.image.width)
+        if(scaleFactor > 1):
+            scaleFactor = 1
+        scaleFactor = 1/scaleFactor
         context = {
             'my_photo': my_photo,
             'image_url': image_url,
             'has_faces': has_faces,
             'user': curr_user,
-            'tagged_users': {'tags': tagged_users}
+            'tagged_users': {'tags': tagged_users},
+            'faces_in_photo': faces_in_photo,
+            'scaleFactor': scaleFactor
         }
 
         return render(request, 'micro/image.html', context)

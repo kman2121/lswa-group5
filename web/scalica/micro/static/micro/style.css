@@ -60,6 +60,7 @@
   vertical-align: top;
   padding: 10px;
   min-width: 300px;
+  position: relative;
 }
 
 #id_text {
@@ -118,3 +119,14 @@ div#content li {
   font-family: sans-serif;
   font-size: 8px;
 }
+
+.tagbox {
+ /* border-style: hidden;*/
+  position: absolute;
+  z-index: 1000;
+ 
+}
+/*
+.tagbox:hover {
+  border-style: solid;
+}*/
