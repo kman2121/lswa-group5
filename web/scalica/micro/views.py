@@ -175,6 +175,7 @@ def image(request, image_id):
                 try:
                     user= User.objects.get(username = tag_name)
                     print user
+                    print request.POST.get('tag')
                     tag = image.tags.get(tagNum = request.POST.get('tag'))
                     print tag
                     tag.user = user

@@ -17,7 +17,7 @@
 <div>
     <div class="half-column">
         {% for face in faces_in_photo %}
-        <div id="{{ face.id }}" class="tagcontainer" style="margin-left:{% widthratio face.x scaleFactor 1 %}px;margin-top:{% widthratio face.y scaleFactor 1 %}px;">
+        <div id="{{ face.tagNum }}" class="tagcontainer" style="margin-left:{% widthratio face.x scaleFactor 1 %}px;margin-top:{% widthratio face.y scaleFactor 1 %}px;">
           <div class="tagbox" style="width:{% widthratio face.width scaleFactor 1 %}px;height:{% widthratio face.height scaleFactor 1 %}px;"></div>
           <div class='tagpage'></div>
         </div>
