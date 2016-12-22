@@ -133,3 +133,7 @@ div#content li {
 .tagpage {
   background-color:white;
 }
+
+.tag {
+  z-index: 2000;
+}
