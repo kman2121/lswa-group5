@@ -164,6 +164,8 @@ function generateTag(event, ele){
 
 function beginAgain(eve){
   var x = document.getElementById('cancel');
+  console.log(x.parentNode);
+  console.log(x.parentNode.parentNode);
   x.parentNode.removeChild(document.getElementById('tag'));
   x.parentNode.removeChild(x);
 
