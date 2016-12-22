@@ -183,7 +183,7 @@ def image(request, image_id):
                 except:
                     pass
             print 'authed'
-        print req.POST.get('user')
+        print request.POST.get('user')
         return HttpResponse('success')
     else:
         raise Http404("Failed")
