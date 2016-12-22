@@ -52,7 +52,7 @@ function getTags() {
   reqFriends.open('GET', 'tags', true);
   reqFriends.addEventListener('load', function() {
     if(this.status >= 200 && this.status < 400){
-      console.log(this.responseTest);
+      console.log(this);
       tags = JSON.parse(this.responseTest);
       for(var tag in tags) {
         console.log(tag);
