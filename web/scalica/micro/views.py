@@ -171,12 +171,12 @@ def image(request, image_id):
             return redirect('/micro')
         if request.user.is_authenticated() and request.user.id == image.user.id:
             if(request.POST.get('userToTag')):
-                tag_name = request.POST.get('userToTag')
-                try:
-                    userToTag = User.objects.get(username = tag_name)
-                    tag = image.tags.get(tagNum = request.POST.get('tagNum'))
-                    tag.user = userToTag
-                    tag.save()
+                tag_name = request.POST.get('userToTag')
+                try:
+                    userToTag = User.objects.get(username = tag_name)
+                    tag = image.tags.get(tagNum = request.POST.get('tagNum'))
+                    tag.user = userToTag
+                    tag.save()
 
         tagged_users = [o.username for o in image.tags.all()]
         return HttpResponse(json.dumps({'tags': tagged_users}), content_type="application/json")
