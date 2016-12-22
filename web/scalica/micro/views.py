@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.core.cache import cache
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+from django.http import Http404
 
 
 from .models import Following, Post, Tag
