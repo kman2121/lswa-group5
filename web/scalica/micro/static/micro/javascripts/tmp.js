@@ -3,10 +3,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   for( var i = 0; i < items.length; i++ ){
     (function(i){
         items[i].addEventListener('mouseover', function(event) {
-            reveal();
+            reveal(this);
         }, false);
         items[i].addEventListener('mouseout', function(event) {
-            hide();
+            hide(this);
         }, false);
         items[i].addEventListener('click', function(event) {
             console.log(this.childNodes);
@@ -14,11 +14,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     })(i);
   }
 
-  function reveal(id) {
-      this.style.borderStyle ="solid";
+  function reveal(ele) {
+      ele.style.borderStyle ="solid";
   }
 
-  function hide(id) {
-        this.style.borderStyle = "hidden";
+  function hide(ele) {
+        ele.style.borderStyle = "hidden";
   }
 });
