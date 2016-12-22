@@ -125,6 +125,11 @@ div#content li {
   position: absolute;
   z-index: 1000;
 }
+
+.tagbox {
+  border-style: dotted;
+  border-width:1px;
+}
 /*
 .tagbox:hover {
   border-style: solid;
