@@ -54,6 +54,7 @@ function getTags() {
       console.log(this.responseTest);
       tags = JSON.parse(this.responseTest);
       for(var tag in tags) {
+        console.log(tag);
         if(tag[1] !== null) {
           console.log(tag);
         }
