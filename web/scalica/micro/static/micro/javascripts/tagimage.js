@@ -163,8 +163,10 @@ function generateTag(event, ele){
 }
 
 function beginAgain(eve){
-  var x = document.getElementById('cancel');
-  x.parentNode.parentNode.removeChild(x.parentNode);
+  var x = document.getElementById('cancel').parentNode;
+  while(x.childNodes[0]) {
+    x.removeChild(x.childNodes[0]);
+  }
 }
 
 function tagPhoto(event){
