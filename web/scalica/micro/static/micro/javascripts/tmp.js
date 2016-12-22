@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-  var items = document.getElementsByClassName("tagbox");
+  var items = document.getElementsByClassName("tagcontainer");
   for( var i = 0; i < items.length; i++ ){
     (function(i){
         items[i].addEventListener('mouseover', function(event) {
