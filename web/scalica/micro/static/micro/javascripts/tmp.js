@@ -9,7 +9,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
             hide(this);
         }, false);
         items[i].addEventListener('click', function(event) {
-            console.log(this.nextSibling);
+            for(var i in this.parentNode.childNodes) {
+              if(i.classList.contains('testtagging')) {
+                i.hidden = false;
+              }
+            };
         }, false);
     })(i);
   }
