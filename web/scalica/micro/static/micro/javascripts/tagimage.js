@@ -81,6 +81,7 @@ function getTags() {
           console.log(tags.tags[i]);
           var x = document.createElement('p');
           x.innerHTML = tags.tags[i][1];
+          x.style.backgroundColor = 'white';
           document.getElementById(tags.tags[i][0]).appendChild(x);
           document.getElementById(tags.tags[i][0]).addEventListener('click', function(event) {
             event.preventDefault();
