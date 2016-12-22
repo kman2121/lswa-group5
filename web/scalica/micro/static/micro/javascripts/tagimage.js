@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function(event){
             hide(this);
         }, false);
         items[i].addEventListener('click', function(event) {
+            reveal(this);
             generateTag(null, this.parentNode.childNodes[3]);
         }, false);
     })(i);
@@ -152,30 +153,19 @@ function generateTag(event, ele){
 
   //tagBox.addEventListener("change", findFriends);
 
-  var cancelBtn = document.getElementById('cancel');
-  if(cancelBtn){
-    cancelBtn.style.visibility = 'visible';
-  }
-  else{
-    cancelBtn = document.createElement('button');
-    cancelBtn.id = "cancel";
-    cancelBtn.innerHTML = "cancel tag";
-    document.getElementById('tagpage').appendChild(cancelBtn);
-    cancelBtn.addEventListener('click', beginAgain);
-  }
+  var cancelBtn = document.createElement('button');
+  cancelBtn.id = "cancel";
+  cancelBtn.innerHTML = "cancel tag";
+  ele.appendChild(cancelBtn);
+  cancelBtn.addEventListener('click', beginAgain);
   getFriends()
 
 }
 
 function beginAgain(eve){
-  var restart = document.getElementById('tagpage');
-  while(restart.childNodes[0]){
-    restart.removeChild(restart.childNodes[0]);
-  }
-  var prompt = tagMePrompt();
-  prompt.childNodes[0].innerHTML = "Tag cancelled. Tag photo after all?"
-  restart.appendChild(prompt);
-  document.getElementById("yesBtn").addEventListener('click', generateTag);
+  var x = document.getElementById('cancel');
+  x.parentNode.removeChild(document.getElementById('tag'));
+  x.parentNode.removeChild(x);
 
 }
 
