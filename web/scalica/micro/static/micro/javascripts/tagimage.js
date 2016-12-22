@@ -167,7 +167,6 @@ function beginAgain(eve){
       x.removeChild(x.childNodes[0]);
     }
   } catch(err) {
-    continue
   }
 }
 
