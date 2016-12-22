@@ -152,6 +152,7 @@ def image(request, image_id):
         curr_user = request.user
         faces_in_photo = image.tags.all()
         tagged_users = [o.user for o in image.tags.all() if not o.user == None]
+        tagged_users = list(set(tagged_users))
         scaleFactor = float(600)/max(image.image.height, image.image.width)
         if(scaleFactor > 1):
             scaleFactor = 1
