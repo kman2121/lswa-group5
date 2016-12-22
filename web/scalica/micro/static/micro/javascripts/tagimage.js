@@ -141,7 +141,10 @@ function generateTag(event){
   form.appendChild(tagLabel);
   form.appendChild(tagBox);
   tagger.appendChild(form);
-  document.getElementById('tagpage').appendChild(tagger);
+  var tagpages = document.getElementsByClassName('tagpage');
+  for(var i = 0; i < tagpages.length; i++) {
+    tagpages[i].appendChild(tagger);
+  }
 
 
   //tagBox.addEventListener("change", findFriends);
