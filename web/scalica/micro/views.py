@@ -125,7 +125,7 @@ def tags(request, image_id):
             image = Post.objects.get(id=image_id)
             return HttpResponse(json.dumps({'tags':image.tags.all()}))
         except:
-            break
+            raise Http404("Image does not exist")
 
 @csrf_exempt
 def image(request, image_id):
