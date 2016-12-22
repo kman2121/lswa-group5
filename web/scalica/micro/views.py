@@ -184,7 +184,7 @@ def image(request, image_id):
                     pass
         return HttpResponse('success')
     else:
-        return raise Http404("Failed")
+        raise Http404("Failed")
 
 @login_required
 def follow(request):
