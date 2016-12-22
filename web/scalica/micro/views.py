@@ -126,7 +126,7 @@ def tags(request, image_id):
             print(image_id)
             image = Post.objects.get(id=image_id)
             print(image)
-            return HttpResponse(json.dumps({'tags':[o for o in image.tags.all()]}))
+            return HttpResponse(json.dumps({'tags':[o.tagNum, o.user for o in image.tags.all()]}))
         except Post.DoesNotExist:
             raise Http404("Image does not exist")
 
