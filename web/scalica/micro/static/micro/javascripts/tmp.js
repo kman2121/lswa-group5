@@ -9,9 +9,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             hide(this);
         }, false);
         items[i].addEventListener('click', function(event) {
-            for(var i in this.parentNode.childNodes) {
-              console.log(this.parentNode.childNodes[i]);
-            };
+            this.parentNode.childNodes[3].hidden = false;
         }, false);
     })(i);
   }
