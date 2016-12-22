@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }, false);
         items[i].addEventListener('click', function(event) {
             for(var i in this.parentNode.childNodes) {
-              console.log(i);
+              console.log(this.parentNode.childNodes[i]);
             };
         }, false);
     })(i);
