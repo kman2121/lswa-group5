@@ -98,7 +98,7 @@ function dojustice() {
       friendDict.push(friends[friend]);
     }
   }
-  $( ".tag" ).autocomplete({
+  $( "#tag" ).autocomplete({
     source: friendDict,
     select: function(event, ui) {
       var content = "the_tag="+ui.item.value;
