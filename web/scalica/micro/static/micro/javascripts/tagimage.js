@@ -54,7 +54,7 @@ function getTags() {
     if(this.status >= 200 && this.status < 400){
       tags = JSON.parse(this.responseText);
       for(let i = 0; i < tags.length; i++) {
-        if(tags.tags[i][1] !== null) {
+        if(tags.tags[i][1] == null) {
           console.log(tags.tags[i]);
         }
       }
