@@ -177,7 +177,8 @@ def image(request, image_id):
                     tag = image.tags.get(tagNum = request.POST.get('tagNum'))
                     tag.user = userToTag
                     tag.save()
-
+                except:
+                    pass
         tagged_users = [o.username for o in image.tags.all()]
         return HttpResponse(json.dumps({'tags': tagged_users}), content_type="application/json")
     else:
