@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function(event){
   }
   tgpg.appendChild(prompt);
   document.getElementById("yesBtn").addEventListener('click', generateTag);
+  getTags();
 });
 
 
