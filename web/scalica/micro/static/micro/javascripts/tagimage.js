@@ -77,8 +77,13 @@ function getTags() {
     if(this.status >= 200 && this.status < 400){
       tags = JSON.parse(this.responseText);
       for(let i = 0; i < tags.length; i++) {
-        if(tags.tags[i][1] == null) {
-          console.log(tags.tags[i]);
+        if(tags.tags[i][1] !== null) {
+          var x = document.createElement('p');
+          x.innerHTML = tags.tags[i][1];
+          document.getElementById(tags.tags[i][0]).appendChild(x);
+          document.getElementById(tags.tags[i][0]).addEventListener('click', function(event) {
+            event.preventDefault();
+          })
         }
       }
     }
@@ -108,7 +113,7 @@ function dojustice() {
       req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       req.addEventListener('load', function(eve){
           if (this.status >= 200 && this.status < 400){
-              Location.reload();
+              location.reload();
           }
       });
       req.send(content);
