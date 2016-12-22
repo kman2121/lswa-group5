@@ -8,9 +8,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         items[i].addEventListener('mouseout', function(event) {
             hide(items[i].id);
         }, false);
-        /*items[i].addEventListener('click', function(event) {
-            myThirdFunction(items[i].id);
-        }, false);*/
+        items[i].addEventListener('click', function(event) {
+            console.log(this.childNodes);
+        }, false);
     })(i);
   }
 
