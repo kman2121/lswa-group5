@@ -102,25 +102,13 @@ function dojustice() {
   $( "#tag" ).autocomplete({
     source: friendDict,
     select: function(event, ui) {
-      var content = "the_tag="+ui.item.value;
+      var content = "user="+ui.item.value+"&tag="+document.getElementById('taggerform').parentNode.parentNode.parentNode.id;
       var req = new XMLHttpRequest();
       req.open("POST", "", true);
       req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       req.addEventListener('load', function(eve){
           if (this.status >= 200 && this.status < 400){
-              var fixme = document.getElementById('taglist');
-              while(fixme.childNodes[0]){
-                fixme.removeChild(fixme.childNodes[0]);
-              }
-              var resText = JSON.parse(this.responseText);
-              console.log(resText);
-              for(taggy in resText['tags']){
-                var curAdditionText = resText['tags'][taggy];
-                var curAddition = document.createElement("li");
-                curAddition.innerHTML = curAdditionText;
-                fixme.appendChild(curAddition);
-              }
-
+              Location.reload();
           }
       });
       req.send(content);
@@ -192,6 +180,6 @@ function tagPhoto(event){
         console.log("error");
       }
       });
-    req.send( "the_tag="+userToBeTagged+"&"+
+    req.send( "user="+userToBeTagged+"&"+
                  "the_image="+url); // data sent with the post request
 };

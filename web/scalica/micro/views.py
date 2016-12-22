@@ -170,12 +170,12 @@ def image(request, image_id):
         except Post.DoesNotExist:
             return redirect('/micro')
         if request.user.is_authenticated() and request.user.id == image.user.id:
-            if(request.POST.get('userToTag')):
-                tag_name = request.POST.get('userToTag')
+            if(request.POST.get('user')):
+                tag_name = request.POST.get('user')
                 try:
-                    userToTag = User.objects.get(username = tag_name)
-                    tag = image.tags.get(tagNum = request.POST.get('tagNum'))
-                    tag.user = userToTag
+                    user= User.objects.get(username = tag_name)
+                    tag = image.tags.get(tagNum = request.POST.get('tag'))
+                    tag.user = user
                     tag.save()
                 except:
                     pass
