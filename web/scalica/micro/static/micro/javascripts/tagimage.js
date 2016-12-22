@@ -78,6 +78,7 @@ function getTags() {
       tags = JSON.parse(this.responseText);
       for(let i = 0; i < tags.length; i++) {
         if(tags.tags[i][1] !== null) {
+          console.log(tags.tags[i]);
           var x = document.createElement('p');
           x.innerHTML = tags.tags[i][1];
           document.getElementById(tags.tags[i][0]).appendChild(x);
