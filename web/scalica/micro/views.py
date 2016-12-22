@@ -123,6 +123,7 @@ def post(request):
 def tags(request, image_id):
     if request.method == 'GET':
         try:
+            print(image_id)
             image = Post.objects.get(id=image_id)
             print(image)
             return HttpResponse(json.dumps({'tags':image.tags.all()}))
