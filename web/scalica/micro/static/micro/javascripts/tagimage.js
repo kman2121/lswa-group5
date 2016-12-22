@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function(event){
             hide(this);
         }, false);
         items[i].addEventListener('click', function(event) {
+            console.log(this.parentNode.childNodes.length);
             reveal(this);
             generateTag(null, this.parentNode.childNodes[3]);
         }, false);
