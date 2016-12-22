@@ -19,7 +19,7 @@
         {% for face in faces_in_photo %}
         <div id="{{ face.id }}" class="tagcontainer" style="margin-left:{% widthratio face.x scaleFactor 1 %}px;margin-top:{% widthratio face.y scaleFactor 1 %}px;">
           <div class="tagbox" style="width:{% widthratio face.width scaleFactor 1 %}px;height:{% widthratio face.height scaleFactor 1 %}px;"></div>
-          <div class='tagpage' hidden></div>
+          <div class='tagpage'></div>
         </div>
         {% endfor %}
         <img id="img-page-pic" src="{{ image_url }}" {% if has_faces %} class="has_faces" {% endif %}/>

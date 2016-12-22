@@ -12,6 +12,28 @@ document.addEventListener('DOMContentLoaded', function(event){
   tgpg.appendChild(prompt);
   document.getElementById("yesBtn").addEventListener('click', generateTag);
   getTags();
+  var items = document.getElementsByClassName("tagbox");
+  for( var i = 0; i < items.length; i++ ){
+    (function(i){
+        items[i].addEventListener('mouseover', function(event) {
+            reveal(this);
+        }, false);
+        items[i].addEventListener('mouseout', function(event) {
+            hide(this);
+        }, false);
+        items[i].addEventListener('click', function(event) {
+            generateTag(null, this.parentNode.childNodes[3]);
+        }, false);
+    })(i);
+  }
+
+  function reveal(ele) {
+      ele.style.borderStyle ="solid";
+  }
+
+  function hide(ele) {
+        ele.style.borderStyle = "hidden";
+  }
 });
 
 
@@ -106,18 +128,7 @@ function dojustice() {
 }
 
 
-function generateTag(event){
-  /*As soon as the user wants to tag someone
-  return a list of their friends that can be accessed
-  and eventually used to tag friends */
-/*
-  var reqFriends = new XMLHttpRequest();
-  reqFriends.open('GET', '/api/userfriends', true);
-  //req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  reqFriends.addEventListener('load', updateFriendsList);
-  reqFriends.send();
-  console.log("clicked yes");
-  document.getElementById('tagMePrompt').style.visibility = 'hidden';*/
+function generateTag(event, ele){
   var boxes = document.getElementsByClassName('tagbox');
   for (b in boxes){
     var box = boxes[b];
@@ -141,10 +152,7 @@ function generateTag(event){
   form.appendChild(tagLabel);
   form.appendChild(tagBox);
   tagger.appendChild(form);
-  var tagpages = document.getElementsByClassName('tagpage');
-  for(var i = 0; i < tagpages.length; i++) {
-    tagpages[i].appendChild(tagger);
-  }
+  ele.appendChild(tagger);
 
 
   //tagBox.addEventListener("change", findFriends);
