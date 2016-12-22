@@ -130,10 +130,6 @@ div#content li {
   border-style: solid;
 }*/
 
-.tagpage {
+.taggerform {
   background-color:white;
-}
-
-.tag {
-  z-index: 2000;
 }
