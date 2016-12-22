@@ -57,7 +57,7 @@ class Post(models.Model):
     return self.user.username + ':' + desc
 
 class Tag(models.Model):
-    id = models.IntegerField()
+    tagNum = models.IntegerField()
     x = models.IntegerField()
     y = models.IntegerField()
     height = models.IntegerField()
@@ -67,7 +67,7 @@ class Tag(models.Model):
     @classmethod
     def create(cls, post, x, y, w, h, user):
         thisId = len(Post.objects.get(id = post.id).tags.all())
-        book = cls(post=post, x=x, y=y, width=w, height=h, user=user, id = thisId)
+        book = cls(post=post, x=x, y=y, width=w, height=h, user=user, tagNum = thisId)
         return book
 
 class Following(models.Model):
