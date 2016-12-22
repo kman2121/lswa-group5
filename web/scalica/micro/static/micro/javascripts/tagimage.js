@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function(event){
   }
 
   function hide(ele) {
-        ele.style.borderStyle = "hidden";
+        ele.style.borderStyle = "dotted";
   }
 });
 
