@@ -161,9 +161,13 @@ function generateTag(event, ele){
 }
 
 function beginAgain(eve){
-  var x = document.getElementById('cancel').parentNode;
-  while(x.childNodes[0]) {
-    x.removeChild(x.childNodes[0]);
+  try {
+    var x = document.getElementById('cancel').parentNode;
+    while(x.childNodes[0]) {
+      x.removeChild(x.childNodes[0]);
+    }
+  } catch(err) {
+    continue
   }
 }
 
