@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-  var items = document.getElementsByClassName("tagcontainer");
+  var items = document.getElementsByClassName("tagbox");
   for( var i = 0; i < items.length; i++ ){
     (function(i){
         items[i].addEventListener('mouseover', function(event) {
-            reveal(items[i].id);
+            reveal();
         }, false);
         items[i].addEventListener('mouseout', function(event) {
-            hide(items[i].id);
+            hide();
         }, false);
         items[i].addEventListener('click', function(event) {
             console.log(this.childNodes);
@@ -15,11 +15,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   function reveal(id) {
-      document.getElementById(id).style.borderStyle ="solid";
+      this.style.borderStyle ="solid";
   }
 
   function hide(id) {
-          document.getElementById(id).style.borderStyle = "hidden";
-
+        this.style.borderStyle = "hidden";
   }
 });
