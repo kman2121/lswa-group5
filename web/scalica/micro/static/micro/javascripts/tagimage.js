@@ -53,6 +53,11 @@ function getTags() {
     if(this.status >= 200 && this.status < 400){
       console.log(this.responseTest);
       tags = JSON.parse(this.responseTest);
+      for(var tag in tags) {
+        if(tag[1] !== null) {
+          console.log(tag);
+        }
+      }
     }
   });
   reqFriends.send();
