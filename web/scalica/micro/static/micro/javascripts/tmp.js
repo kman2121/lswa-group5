@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             hide(this);
         }, false);
         items[i].addEventListener('click', function(event) {
-            console.log(this.childNodes);
+            console.log(this.nextSibling);
         }, false);
     })(i);
   }
