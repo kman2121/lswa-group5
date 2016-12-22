@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', function(event){
         }, false);
         items[i].addEventListener('click', function(event) {
             if(this.parentNode.childNodes.length === 5) {
+              beginAgain();
               reveal(this);
               generateTag(null, this.parentNode.childNodes[3]);
-              beginAgain();
             }
         }, false);
     })(i);
