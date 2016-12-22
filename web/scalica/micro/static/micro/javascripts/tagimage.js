@@ -76,7 +76,7 @@ function getTags() {
   reqFriends.addEventListener('load', function() {
     if(this.status >= 200 && this.status < 400){
       tags = JSON.parse(this.responseText);
-      for(let i = 0; i < tags.length; i++) {
+      for(let i = 0; i < tags.tags.length; i++) {
         if(tags.tags[i][1] !== null) {
           console.log(tags.tags[i]);
           var x = document.createElement('p');
