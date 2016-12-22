@@ -129,11 +129,6 @@ function dojustice() {
 
 
 function generateTag(event, ele){
-  var boxes = document.getElementsByClassName('tagbox');
-  for (b in boxes){
-    var box = boxes[b];
-    box.addEventListener('click', boxClick);
-  }
 
   var tagger = document.createElement('div');
   tagger.id ="taggerformdiv";
