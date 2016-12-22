@@ -174,9 +174,12 @@ def image(request, image_id):
                 tag_name = request.POST.get('user')
                 try:
                     user= User.objects.get(username = tag_name)
+                    print user
                     tag = image.tags.get(tagNum = request.POST.get('tag'))
+                    print tag
                     tag.user = user
                     tag.save()
+                    print 'saved'
                 except:
                     pass
         return HttpResponse('success')
