@@ -168,7 +168,7 @@ def image(request, image_id):
         try:
             image = Post.objects.get(id=image_id)
         except Post.DoesNotExist:
-            return redirect('/micro')
+            raise Http404("Failed")
         if request.user.is_authenticated() and request.user.id == image.user.id:
             if(request.POST.get('user')):
                 tag_name = request.POST.get('user')
